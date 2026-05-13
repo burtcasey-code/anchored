@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1a1d22">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Anchored">
+<title>Anchored</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"Anchored","short_name":"Anchored","start_url":".","display":"standalone","background_color":"%23faf6f0","theme_color":"%231a1d22","icons":[{"src":"data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%231a1d22%22 rx=%2220%22/><text x=%2250%22 y=%2270%22 text-anchor=%22middle%22 font-size=%2270%22 fill=%22%23faf6f0%22 font-family=%22serif%22>A</text></svg>","sizes":"192x192","type":"image/svg+xml"}]}'>
+<style>
+:root {
+  --bg: #faf6f0;
+  --bg-elev: #ffffff;
+  --bg-soft: #f1ece3;
+  --bg-muted: #ebe5d8;
+  --ink: #1a1d22;
+  --ink-soft: #44484f;
+  --ink-mute: #7a7770;
+  --ink-faint: #a8a49c;
+  --line: #e0d9cb;
+  --line-soft: #ede7da;
+  --accent: #1a1d22;
+  --rust: #a04930;
+  --rust-soft: #f4e3d8;
+  --olive: #5a6b3c;
+  --olive-soft: #e8ecdb;
+  --gold: #9b6f1c;
+  --gold-soft: #f5ead0;
+  --indigo: #36476b;
+  --indigo-soft: #dce3ee;
+  --slate: #4a5158;
+  --slate-soft: #e3e1dc;
+  --shadow: 0 1px 2px rgba(26,29,34,.04), 0 4px 12px rgba(26,29,34,.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171a;
+    --bg-elev: #1d2025;
+    --bg-soft: #22262c;
+    --bg-muted: #2a2f36;
+    --ink: #f0ece4;
+    --ink-soft: #c4bfb5;
+    --ink-mute: #8d8a83;
+    --ink-faint: #6a6862;
+    --line: #2e333a;
+    --line-soft: #262a30;
+    --accent: #f0ece4;
+    --rust: #d77a5a;
+    --rust-soft: #3a2620;
+    --olive: #a8b87e;
+    --olive-soft: #2a3322;
+    --gold: #d0a554;
+    --gold-soft: #3a2e18;
+    --indigo: #8a9dc6;
+    --indigo-soft: #1f2733;
+    --slate: #9aa1aa;
+    --slate-soft: #25282d;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+  }
+}
+[data-theme="dark"] {
+  --bg: #15171a;
+  --bg-elev: #1d2025;
+  --bg-soft: #22262c;
+  --bg-muted: #2a2f36;
+  --ink: #f0ece4;
+  --ink-soft: #c4bfb5;
+  --ink-mute: #8d8a83;
+  --ink-faint: #6a6862;
+  --line: #2e333a;
+  --line-soft: #262a30;
+  --accent: #f0ece4;
+  --rust: #d77a5a;
+  --rust-soft: #3a2620;
+  --olive: #a8b87e;
+  --olive-soft: #2a3322;
+  --gold: #d0a554;
+  --gold-soft: #3a2e18;
+  --indigo: #8a9dc6;
+  --indigo-soft: #1f2733;
+  --slate: #9aa1aa;
+  --slate-soft: #25282d;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.serif { font-family: 'Fraunces', Georgia, serif; font-feature-settings: 'ss01', 'ss02'; }
+.app {
+  display: flex; flex-direction: column;
+  height: 100vh; height: 100dvh;
+  max-width: 480px; margin: 0 auto;
+  position: relative;
+  background: var(--bg);
+}
+.screen {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 0 20px;
+  -webkit-overflow-scrolling: touch;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: 100px;
+}
+.screen.hidden { display: none; }
+.screen-header {
+  padding: 24px 0 12px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+}
+.eyebrow {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-mute); font-weight: 500;
+  margin-bottom: 4px;
+}
+.h1 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; }
+.h2 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 400; letter-spacing: -0.015em; line-height: 1.2; }
+.h3 { font-size: 14px; font-weight: 500; letter-spacing: -0.005em; }
+.body { font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
+.small { font-size: 12px; color: var(--ink-mute); line-height: 1.5; }
+.tiny { font-size: 10px; color: var(--ink-mute); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; }
+.italic { font-style: italic; }
+
+button, input, textarea, select {
+  font-family: inherit; font-size: inherit; color: inherit;
+  border: none; background: none; outline: none;
+}
+button { cursor: pointer; }
+input, textarea {
+  width: 100%; padding: 10px 12px;
+  background: var(--bg-elev); border: 1px solid var(--line);
+  border-radius: 8px; color: var(--ink); font-size: 14px;
+  transition: border-color 0.15s;
+}
+input:focus, textarea:focus { border-color: var(--ink-mute); }
+textarea { resize: none; line-height: 1.55; min-height: 60px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 16px; border-radius: 8px;
+  background: var(--bg-soft); color: var(--ink);
+  font-size: 13px; font-weight: 500;
+  border: 1px solid transparent;
+  transition: background 0.15s, transform 0.05s;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-ghost { background: transparent; }
+.btn-outline { background: transparent; border-color: var(--line); }
+.btn-sm { padding: 6px 10px; font-size: 12px; }
+
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card-soft {
+  background: var(--bg-soft);
+  border-radius: 12px; padding: 14px;
+  margin-bottom: 12px;
+}
+
+.nav-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-around;
+  padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+  z-index: 20;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  color: var(--ink-faint); transition: color 0.15s;
+  padding: 4px 16px;
+}
+.nav-item.active { color: var(--ink); }
+.nav-item svg { width: 22px; height: 22px; stroke-width: 1.5; }
+.nav-item .label { font-size: 10px; letter-spacing: 0.02em; font-weight: 500; }
+
+.divider { height: 1px; background: var(--line-soft); margin: 16px 0; }
+
+.banner {
+  padding: 12px 14px;
+  background: var(--rust-soft); color: var(--rust);
+  border-radius: 10px; margin-bottom: 14px;
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; line-height: 1.5;
+}
+.banner svg { flex-shrink: 0; margin-top: 2px; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 500;
+  background: var(--bg-muted); color: var(--ink-soft);
+}
+.pill-rust { background: var(--rust-soft); color: var(--rust); }
+.pill-olive { background: var(--olive-soft); color: var(--olive); }
+.pill-gold { background: var(--gold-soft); color: var(--gold); }
+.pill-indigo { background: var(--indigo-soft); color: var(--indigo); }
+.pill-slate { background: var(--slate-soft); color: var(--slate); }
+
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+  z-index: 100; display: none; align-items: flex-end; justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.modal-backdrop.open { display: flex; }
+.modal {
+  width: 100%; max-width: 480px;
+  background: var(--bg); border-radius: 20px 20px 0 0;
+  padding: 16px 20px 24px;
+  max-height: 90vh; overflow-y: auto;
+  animation: slideUp 0.2s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-handle {
+  width: 36px; height: 4px; background: var(--line);
+  border-radius: 999px; margin: 0 auto 16px;
+}
+
+/* TODAY */
+.greeting-card {
+  background: linear-gradient(135deg, var(--bg-soft) 0%, var(--bg-muted) 100%);
+  border-radius: 16px; padding: 20px;
+  margin-bottom: 18px;
+  border: 1px solid var(--line-soft);
+}
+.one-percent-card {
+  background: var(--olive-soft);
+  border-radius: 12px; padding: 14px;
+  margin-bottom: 14px;
+}
+.one-percent-card .tiny { color: var(--olive); }
+.one-percent-card .text { color: var(--olive); font-family: 'Fraunces', serif; font-size: 16px; line-height: 1.4; margin-top: 4px; }
+.one-percent-card.empty .text { color: var(--ink-faint); font-style: italic; font-family: 'Inter', sans-serif; font-size: 14px; }
+
+.task-row, .habit-row, .commitment-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; background: var(--bg-elev);
+  border: 1px solid var(--line-soft); border-radius: 10px;
+  margin-bottom: 6px;
+}
+.task-row.do-now { border-left: 3px solid var(--rust); }
+.task-row.schedule { border-left: 3px solid var(--indigo); }
+.task-row.delegate { border-left: 3px solid var(--gold); }
+.task-row.drop { border-left: 3px solid var(--slate); }
+
+.check {
+  width: 20px; height: 20px; border-radius: 5px;
+  border: 1.5px solid var(--ink-faint);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.15s;
+  background: var(--bg);
+}
+.check.checked { background: var(--ink); border-color: var(--ink); }
+.check.checked svg { color: var(--bg); }
+.check.do-now.checked { background: var(--rust); border-color: var(--rust); }
+.check.do-now.checked svg { color: white; }
+.check.schedule.checked { background: var(--indigo); border-color: var(--indigo); }
+.check.schedule.checked svg { color: white; }
+.check svg { width: 14px; height: 14px; display: none; }
+.check.checked svg { display: block; }
+
+.task-title { flex: 1; font-size: 14px; line-height: 1.35; min-width: 0; }
+.task-title.struck { text-decoration: line-through; color: var(--ink-faint); }
+
+/* HABIT GRID */
+.habit-grid {
+  background: var(--bg-elev);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px; overflow: hidden;
+}
+.habit-day-header {
+  display: grid; grid-template-columns: 1fr 32px 32px 32px 32px;
+  padding: 8px 12px 6px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--bg-soft);
+}
+.habit-day-col { text-align: center; }
+.habit-day-col .dow { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); font-weight: 500; }
+.habit-day-col .dom { font-size: 11px; color: var(--ink-mute); margin-top: 1px; }
+.habit-day-col.today .dow, .habit-day-col.today .dom { color: var(--ink); font-weight: 600; }
+.habit-item {
+  display: grid; grid-template-columns: 1fr 32px 32px 32px 32px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line-soft);
+  align-items: center;
+}
+.habit-item:last-child { border-bottom: none; }
+.habit-name { font-size: 13px; font-weight: 500; line-height: 1.3; }
+.habit-def { font-size: 10px; color: var(--ink-mute); line-height: 1.3; margin-top: 1px; }
+.habit-cell { display: flex; align-items: center; justify-content: center; min-height: 32px; cursor: pointer; }
+.habit-box {
+  width: 20px; height: 20px; border-radius: 5px;
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg);
+}
+.habit-box.today { border-color: var(--ink-faint); border-width: 1.5px; }
+.habit-box.checked { background: var(--ink); border-color: var(--ink); }
+.habit-box.checked svg { color: var(--bg); width: 12px; height: 12px; }
+.habit-box svg { display: none; }
+.habit-box.checked svg { display: block; }
+
+/* CAPACITY */
+.capacity-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.capacity-cell {
+  background: var(--bg-soft); padding: 10px 4px;
+  border-radius: 8px; text-align: center;
+}
+.capacity-num { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 400; line-height: 1; }
+.capacity-num.empty { color: var(--ink-faint); }
+.capacity-num.low { color: var(--rust); }
+.capacity-num.mid { color: var(--ink); }
+.capacity-num.high { color: var(--olive); }
+.capacity-label { font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-mute); margin-top: 4px; font-weight: 500; }
+
+/* TASKS */
+.tab-bar {
+  display: flex; gap: 2px; padding: 3px;
+  background: var(--bg-soft); border-radius: 10px;
+  margin: 0 0 16px;
+}
+.tab {
+  flex: 1; padding: 7px 4px; font-size: 12px; font-weight: 500;
+  border-radius: 7px; color: var(--ink-mute);
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  white-space: nowrap;
+}
+.tab.active { background: var(--bg); color: var(--ink); box-shadow: var(--shadow); }
+.tab .dot { width: 6px; height: 6px; border-radius: 50%; }
+.tab .count { color: var(--ink-faint); font-size: 11px; }
+
+.fab {
+  position: absolute; bottom: 80px; right: 20px;
+  width: 52px; height: 52px;
+  background: var(--ink); color: var(--bg);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(26,29,34,.2);
+  z-index: 10;
+}
+.fab svg { width: 22px; height: 22px; }
+
+.slider-wrap { margin-bottom: 18px; }
+.slider-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.slider-label { font-size: 13px; font-weight: 500; }
+.slider-value { font-size: 12px; color: var(--ink-mute); }
+.slider {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 4px;
+  background: var(--line); border-radius: 999px;
+  outline: none;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 22px; height: 22px;
+  background: var(--ink); border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--line);
+}
+.slider::-moz-range-thumb {
+  width: 22px; height: 22px;
+  background: var(--ink); border-radius: 50%;
+  cursor: pointer; border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.quadrant-result {
+  padding: 14px; border-radius: 10px;
+  border: 1px solid;
+  margin-top: 16px;
+}
+
+/* MATRIX VIEW */
+.matrix-2x2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-bottom: 16px;
+  position: relative;
+  padding-left: 16px; padding-top: 16px;
+}
+.matrix-axis-y, .matrix-axis-x {
+  position: absolute; font-size: 9px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-mute); font-weight: 500;
+}
+.matrix-axis-y { left: 0; top: 50%; transform: rotate(-90deg) translateX(50%); transform-origin: left center; }
+.matrix-axis-x { top: 0; left: 50%; transform: translateX(-50%); }
+.matrix-cell {
+  background: var(--bg-elev); border: 1px solid var(--line-soft);
+  border-radius: 10px; padding: 10px; min-height: 100px;
+  display: flex; flex-direction: column;
+}
+.matrix-cell-head {
+  font-size: 11px; font-weight: 600; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 4px;
+}
+.matrix-cell.do-now .matrix-cell-head { color: var(--rust); }
+.matrix-cell.schedule .matrix-cell-head { color: var(--indigo); }
+.matrix-cell.delegate .matrix-cell-head { color: var(--gold); }
+.matrix-cell.drop .matrix-cell-head { color: var(--slate); }
+.matrix-item {
+  font-size: 11px; padding: 4px 6px;
+  background: var(--bg-soft); border-radius: 4px;
+  margin-bottom: 3px; line-height: 1.3;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* PRAYER */
+.passage-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 18px;
+  position: relative;
+}
+.passage-ref { font-size: 11px; letter-spacing: 0.05em; color: var(--ink-mute); font-weight: 500; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+.passage-text {
+  font-family: 'Fraunces', serif;
+  font-size: 16px; line-height: 1.65;
+  color: var(--ink); font-style: italic;
+}
+.movement-block {
+  margin-bottom: 18px;
+}
+.movement-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+.movement-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  font-size: 11px; font-weight: 500; color: white;
+  font-family: 'Fraunces', serif;
+}
+.movement-num.lectio { background: var(--indigo); }
+.movement-num.meditatio { background: var(--slate); }
+.movement-num.oratio { background: var(--gold); }
+.movement-num.contemplatio { background: var(--olive); }
+.movement-num.operatio { background: var(--rust); }
+.movement-name { font-size: 14px; font-weight: 500; font-family: 'Fraunces', serif; }
+.movement-latin { font-size: 11px; color: var(--ink-mute); font-style: italic; }
+.movement-prompt { font-size: 11px; color: var(--ink-mute); line-height: 1.4; margin-left: 30px; margin-bottom: 6px; }
+.movement-block textarea { margin-left: 30px; width: calc(100% - 30px); font-family: 'Fraunces', serif; font-size: 14px; line-height: 1.6; }
+
+/* WEEK */
+.section-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin: 20px 0 10px;
+}
+.section-head .h3 { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 400; }
+
+.anchor-rating {
+  display: flex; gap: 6px; margin-top: 8px;
+}
+.anchor-btn {
+  flex: 1; padding: 8px 0; font-size: 13px;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: transparent; color: var(--ink-soft);
+  transition: all 0.15s;
+}
+.anchor-btn.selected { color: white; }
+.anchor-btn.selected.r1 { background: var(--rust); border-color: var(--rust); }
+.anchor-btn.selected.r2 { background: var(--gold); border-color: var(--gold); }
+.anchor-btn.selected.r3 { background: var(--slate); border-color: var(--slate); }
+.anchor-btn.selected.r4 { background: var(--indigo); border-color: var(--indigo); }
+.anchor-btn.selected.r5 { background: var(--olive); border-color: var(--olive); }
+.anchor-desc {
+  margin-top: 8px; padding: 10px 12px;
+  background: var(--bg-soft); border-radius: 8px;
+  font-size: 12px; color: var(--ink-soft); line-height: 1.45;
+}
+
+/* LOOKBACK */
+.lookback-stub {
+  background: var(--bg-soft); border-radius: 12px;
+  padding: 24px 20px; text-align: center;
+  border: 1px dashed var(--line);
+}
+.lookback-stub .h2 { color: var(--ink-soft); margin-bottom: 8px; }
+.lookback-stub .body { color: var(--ink-mute); }
+
+/* SETTINGS */
+.settings-group { margin-bottom: 20px; }
+.settings-group-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); font-weight: 500; margin: 0 12px 8px; }
+.settings-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px; background: var(--bg-elev);
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 14px;
+}
+.settings-row:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+.settings-row:last-child { border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+
+.toggle {
+  width: 40px; height: 22px; background: var(--line);
+  border-radius: 999px; position: relative; transition: background 0.15s;
+}
+.toggle.on { background: var(--olive); }
+.toggle::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 18px; height: 18px; background: white;
+  border-radius: 50%; transition: left 0.15s;
+}
+.toggle.on::after { left: 20px; }
+
+/* LIVE/CARRY-FORWARD */
+.carry-forward {
+  margin-top: 14px; padding: 12px;
+  background: var(--olive-soft); border-radius: 10px;
+}
+.carry-forward .tiny { color: var(--olive); }
+.carry-forward .body { color: var(--olive); margin: 6px 0 10px; font-size: 12px; }
+
+/* DICTATION HINT */
+.dictation-hint {
+  font-size: 10px; color: var(--ink-mute);
+  margin-left: 30px; margin-top: 2px;
+  display: flex; align-items: center; gap: 4px;
+}
+.dictation-hint svg { width: 11px; height: 11px; }
+
+/* WEEK SUMMARY */
+.tier-pill {
+  font-size: 11px; padding: 2px 8px; border-radius: 999px;
+  background: var(--bg-muted); color: var(--ink-mute);
+  font-weight: 500;
+}
+.tier-pill.fit { background: var(--indigo-soft); color: var(--indigo); }
+.tier-pill.strong { background: var(--olive-soft); color: var(--olive); }
+.tier-pill.bonus { background: var(--gold-soft); color: var(--gold); }
+
+/* INPUT/OUTCOME BADGE */
+.commitment-row { gap: 8px; }
+.commitment-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--bg-soft); display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 500; color: var(--ink-mute);
+  flex-shrink: 0; font-family: 'Fraunces', serif;
+}
+.commitment-row input { background: transparent; border: none; padding: 4px 0; flex: 1; }
+.commitment-row input:focus { background: transparent; }
+.outcome-badge {
+  font-size: 10px; padding: 2px 6px; border-radius: 4px;
+  background: var(--gold-soft); color: var(--gold);
+  white-space: nowrap;
+}
+.input-badge {
+  font-size: 10px; padding: 2px 6px; border-radius: 4px;
+  background: var(--olive-soft); color: var(--olive);
+  white-space: nowrap;
+}
+
+/* SLIDER LIVE LABELS */
+.slider-tracker {
+  font-family: 'Fraunces', serif; font-size: 18px;
+  color: var(--ink);
+}
+
+.task-meta {
+  display: flex; gap: 6px; margin-top: 3px; align-items: center; flex-wrap: wrap;
+}
+.task-meta-tag { font-size: 10px; color: var(--ink-mute); }
+
+.empty-state {
+  text-align: center; padding: 28px 16px;
+  color: var(--ink-mute);
+}
+.empty-state .h2 { color: var(--ink-soft); margin-bottom: 6px; }
+
+.task-actions {
+  display: flex; gap: 4px;
+}
+.task-actions button {
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; color: var(--ink-faint);
+}
+.task-actions svg { width: 14px; height: 14px; }
+
+/* CHIP for view toggle */
+.view-toggle {
+  display: inline-flex; padding: 3px;
+  background: var(--bg-soft); border-radius: 8px;
+  margin-left: 8px;
+}
+.view-chip {
+  padding: 4px 10px; font-size: 11px; border-radius: 6px;
+  color: var(--ink-mute); font-weight: 500;
+}
+.view-chip.active { background: var(--bg); color: var(--ink); box-shadow: var(--shadow); }
+
+/* RANGE LABEL TICKS */
+.range-ticks {
+  display: flex; justify-content: space-between;
+  font-size: 9px; color: var(--ink-faint);
+  margin-top: 4px; padding: 0 4px;
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- TODAY SCREEN -->
+<div id="screen-today" class="screen">
+  <div class="screen-header">
+    <div>
+      <div class="eyebrow" id="today-date">Loading…</div>
+      <h1 class="h1 serif" id="today-greeting">Good morning</h1>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="openSettings()" aria-label="Settings">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    </button>
+  </div>
+
+  <div id="backup-banner" style="display:none"></div>
+
+  <div id="one-percent-display"></div>
+
+  <div class="section-head"><h3 class="h3 serif">Today's must-do</h3><span class="small" id="must-do-count"></span></div>
+  <div id="must-do-list"></div>
+
+  <div class="section-head">
+    <h3 class="h3 serif">Daily inputs</h3>
+    <span class="tier-pill" id="today-tier">0 of 7</span>
+  </div>
+  <p class="small" style="margin-bottom:10px;">Track inputs that build capacity, resilience, repeatability.</p>
+  <div class="habit-grid" id="habit-grid"></div>
+  <p class="small italic" style="margin-top:8px;">4 of 7 = Fit Day · 5–6 = Strong · 7 = Bonus · Missed days are data.</p>
+
+  <div style="margin-top:14px">
+    <label class="tiny" style="display:block;margin-bottom:6px;">Note (1 sentence)</label>
+    <input id="day-note" type="text" maxlength="120" placeholder="What's the one thing worth noting?" />
+    <div class="small" style="text-align:right;margin-top:4px;"><span id="note-count">0</span> / 120</div>
+  </div>
+
+  <div class="section-head"><h3 class="h3 serif">Capacity pulse</h3><button class="btn btn-ghost btn-sm" onclick="goToScreen('week')">Rate week →</button></div>
+  <div class="capacity-grid" id="capacity-grid"></div>
+  <p class="small" id="capacity-note" style="margin-top:8px;"></p>
+</div>
+
+<!-- TASKS SCREEN -->
+<div id="screen-tasks" class="screen hidden">
+  <div class="screen-header">
+    <div>
+      <div class="eyebrow">Tasks</div>
+      <h1 class="h1 serif">Today's focus</h1>
+    </div>
+    <div class="view-toggle">
+      <button class="view-chip active" id="view-list" onclick="setTaskView('list')">List</button>
+      <button class="view-chip" id="view-matrix" onclick="setTaskView('matrix')">Matrix</button>
+    </div>
+  </div>
+
+  <div id="tasks-list-view">
+    <div class="tab-bar" id="task-tabs">
+      <button class="tab active" data-tab="do" onclick="setTaskTab('do')"><span class="dot" style="background:var(--rust)"></span> Do <span class="count" id="count-do">0</span></button>
+      <button class="tab" data-tab="schedule" onclick="setTaskTab('schedule')"><span class="dot" style="background:var(--indigo)"></span> Schedule <span class="count" id="count-schedule">0</span></button>
+      <button class="tab" data-tab="delegate" onclick="setTaskTab('delegate')"><span class="dot" style="background:var(--gold)"></span> Delegate <span class="count" id="count-delegate">0</span></button>
+      <button class="tab" data-tab="drop" onclick="setTaskTab('drop')"><span class="dot" style="background:var(--slate)"></span> Drop <span class="count" id="count-drop">0</span></button>
+    </div>
+    <p class="small italic" id="tab-context" style="margin-bottom:14px;"></p>
+    <div id="task-list-container"></div>
+  </div>
+
+  <div id="tasks-matrix-view" style="display:none">
+    <div class="matrix-2x2">
+      <div class="matrix-axis-y">Important →</div>
+      <div class="matrix-axis-x">Urgent →</div>
+      <div class="matrix-cell schedule" id="matrix-schedule">
+        <div class="matrix-cell-head"><span class="dot" style="width:6px;height:6px;background:var(--indigo);border-radius:50%"></span>Schedule</div>
+        <div id="matrix-schedule-items"></div>
+      </div>
+      <div class="matrix-cell do-now" id="matrix-do">
+        <div class="matrix-cell-head"><span class="dot" style="width:6px;height:6px;background:var(--rust);border-radius:50%"></span>Do now</div>
+        <div id="matrix-do-items"></div>
+      </div>
+      <div class="matrix-cell drop" id="matrix-drop">
+        <div class="matrix-cell-head"><span class="dot" style="width:6px;height:6px;background:var(--slate);border-radius:50%"></span>Drop</div>
+        <div id="matrix-drop-items"></div>
+      </div>
+      <div class="matrix-cell delegate" id="matrix-delegate">
+        <div class="matrix-cell-head"><span class="dot" style="width:6px;height:6px;background:var(--gold);border-radius:50%"></span>Delegate</div>
+        <div id="matrix-delegate-items"></div>
+      </div>
+    </div>
+    <p class="small italic">Top-right is what builds your life. Bottom-right is what runs it. Top-left is what robs it. Bottom-left is what fills the gaps when nothing else is left.</p>
+  </div>
+
+  <button class="fab" onclick="openTaskEntry()" aria-label="Add task">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+  </button>
+</div>
+
+<!-- PRAYER SCREEN -->
+<div id="screen-prayer" class="screen hidden">
+  <div class="screen-header">
+    <div>
+      <div class="eyebrow" id="prayer-date">Today</div>
+      <h1 class="h1 serif">Lectio divina</h1>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="openPrayerHistory()" aria-label="Past entries">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"></path><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+    </button>
+  </div>
+
+  <div class="passage-card" id="passage-card">
+    <div class="passage-ref">
+      <span id="passage-ref-text">Loading…</span>
+      <button class="btn-ghost small" onclick="openPassagePicker()" style="font-size:11px;color:var(--ink-mute)">Change</button>
+    </div>
+    <p class="passage-text" id="passage-text">…</p>
+  </div>
+
+  <div id="movements-container"></div>
+
+  <div id="operatio-carry-forward"></div>
+</div>
+
+<!-- WEEK SCREEN -->
+<div id="screen-week" class="screen hidden">
+  <div class="screen-header">
+    <div>
+      <div class="eyebrow" id="week-range">This week</div>
+      <h1 class="h1 serif">Weekly review</h1>
+    </div>
+  </div>
+
+  <div class="section-head"><h3 class="h3 serif">This week's 1%</h3></div>
+  <p class="small" style="margin-bottom:8px;">A single, small adjustment to protect or restore capacity. One per week. Not a goal — a lever.</p>
+  <textarea id="one-percent-input" maxlength="140" placeholder="The one small thing this week…" rows="2"></textarea>
+  <div class="small" style="text-align:right;margin-top:4px;"><span id="op-count">0</span> / 140</div>
+
+  <div class="section-head"><h3 class="h3 serif">Top 3 commitments</h3></div>
+  <p class="small" style="margin-bottom:10px;">Inputs you control, not outcomes you hope for. Three only.</p>
+  <div id="commitments-list"></div>
+  <div class="small italic" style="margin-top:8px;padding:10px;background:var(--bg-soft);border-radius:8px;"><strong>Tip:</strong> If you can't say what's controllable about a commitment, it might be an outcome in disguise. "Lose 5 lbs" is an outcome. "Walk 30 min, 5 days" is an input.</div>
+
+  <div class="section-head"><h3 class="h3 serif">Capacity snapshot</h3></div>
+  <p class="small" style="margin-bottom:12px;">Don't rate from feeling. Pick the description that fits the week.</p>
+  <div id="capacity-rating-list"></div>
+  <div class="card-soft small" style="margin-top:12px;"><strong>Aim:</strong> Mostly <strong>3s</strong>, some <strong>4s</strong>, an occasional <strong>5</strong>. A week of 2s is data. A week of 5s is suspicious.</div>
+
+  <div class="section-head"><h3 class="h3 serif">Weekly notes</h3></div>
+  <textarea id="weekly-notes" placeholder="Patterns, friction, what worked, what didn't…" rows="4"></textarea>
+
+  <div class="section-head"><h3 class="h3 serif">Look back</h3></div>
+  <div id="lookback-content"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="nav-bar">
+  <button class="nav-item active" data-screen="today" onclick="goToScreen('today')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    <span class="label">Today</span>
+  </button>
+  <button class="nav-item" data-screen="tasks" onclick="goToScreen('tasks')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+    <span class="label">Tasks</span>
+  </button>
+  <button class="nav-item" data-screen="prayer" onclick="goToScreen('prayer')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+    <span class="label">Prayer</span>
+  </button>
+  <button class="nav-item" data-screen="week" onclick="goToScreen('week')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+    <span class="label">Week</span>
+  </button>
+</nav>
+
+<!-- MODAL: TASK ENTRY -->
+<div class="modal-backdrop" id="modal-task-entry" onclick="closeModalOnBackdrop(event,'modal-task-entry')">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2 class="h2 serif" style="margin-bottom:14px;">New task</h2>
+    <input id="task-title-input" type="text" placeholder="What's the task?" style="margin-bottom:18px;" />
+
+    <div class="slider-wrap">
+      <div class="slider-head"><span class="slider-label">Importance</span><span class="slider-value" id="imp-label">3 — Useful</span></div>
+      <input id="imp-slider" type="range" min="1" max="5" value="3" class="slider" />
+      <div class="range-ticks"><span>Trivial</span><span>Useful</span><span>Critical</span></div>
+    </div>
+
+    <div class="slider-wrap">
+      <div class="slider-head"><span class="slider-label">Urgency</span><span class="slider-value" id="urg-label">3 — Soon</span></div>
+      <input id="urg-slider" type="range" min="1" max="5" value="3" class="slider" />
+      <div class="range-ticks"><span>No rush</span><span>Soon</span><span>Today</span></div>
+    </div>
+
+    <div class="slider-wrap">
+      <div class="slider-head"><span class="slider-label">Difficulty</span><span class="slider-value" id="diff-label">3 — Moderate</span></div>
+      <input id="diff-slider" type="range" min="1" max="5" value="3" class="slider" />
+      <div class="range-ticks"><span>Quick</span><span>Moderate</span><span>Grueling</span></div>
+    </div>
+
+    <div class="quadrant-result" id="quadrant-result"></div>
+
+    <div style="display:flex;gap:8px;margin-top:18px;">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('modal-task-entry')">Cancel</button>
+      <button class="btn btn-primary" style="flex:1" onclick="saveTask()">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: SETTINGS -->
+<div class="modal-backdrop" id="modal-settings" onclick="closeModalOnBackdrop(event,'modal-settings')">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2 class="h2 serif" style="margin-bottom:14px;">Settings</h2>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Appearance</div>
+      <div style="background:var(--bg-elev);border-radius:10px;border:1px solid var(--line-soft);overflow:hidden">
+        <div class="settings-row">
+          <div>
+            <div>Theme</div>
+            <div class="small">System default unless overridden</div>
+          </div>
+          <select id="theme-select" onchange="setTheme(this.value)" style="width:auto;padding:6px 10px">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Data</div>
+      <div style="background:var(--bg-elev);border-radius:10px;border:1px solid var(--line-soft);overflow:hidden">
+        <div class="settings-row">
+          <div>
+            <div>Export backup</div>
+            <div class="small" id="last-backup-info">Never backed up</div>
+          </div>
+          <button class="btn btn-sm btn-outline" onclick="exportBackup()">Download</button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <div>Import backup</div>
+            <div class="small">Restore from a .json file</div>
+          </div>
+          <button class="btn btn-sm btn-outline" onclick="document.getElementById('import-file').click()">Choose…</button>
+          <input type="file" id="import-file" accept=".json" style="display:none" onchange="importBackup(event)">
+        </div>
+        <div class="settings-row">
+          <div>
+            <div>Backup reminder</div>
+            <div class="small">Prompt every 7 days</div>
+          </div>
+          <div class="toggle on" id="backup-reminder-toggle" onclick="toggleBackupReminder()"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Reading</div>
+      <div style="background:var(--bg-elev);border-radius:10px;border:1px solid var(--line-soft);overflow:hidden">
+        <div class="settings-row">
+          <div>
+            <div>Translation</div>
+            <div class="small">American Standard Version (public domain)</div>
+          </div>
+          <div class="small">ASV</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Danger zone</div>
+      <div style="background:var(--bg-elev);border-radius:10px;border:1px solid var(--line-soft);overflow:hidden">
+        <div class="settings-row">
+          <div>
+            <div>Reset all data</div>
+            <div class="small">Cannot be undone. Export backup first.</div>
+          </div>
+          <button class="btn btn-sm" style="color:var(--rust)" onclick="confirmReset()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-outline" style="width:100%;margin-top:18px" onclick="closeModal('modal-settings')">Done</button>
+    <div class="small" style="text-align:center;margin-top:14px;color:var(--ink-faint)">Anchored v0.1 · ASV public domain · bible-api.com</div>
+  </div>
+</div>
+
+<!-- MODAL: PASSAGE PICKER -->
+<div class="modal-backdrop" id="modal-passage" onclick="closeModalOnBackdrop(event,'modal-passage')">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2 class="h2 serif" style="margin-bottom:14px;">Change passage</h2>
+    <p class="small" style="margin-bottom:12px;">Enter a reference like <em>John 15:4-5</em> or <em>Psalm 23</em>.</p>
+    <input id="passage-ref-input" type="text" placeholder="John 15:4-5" style="margin-bottom:12px;" />
+    <div id="passage-error" class="small" style="color:var(--rust);margin-bottom:12px;display:none"></div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal('modal-passage')">Cancel</button>
+      <button class="btn btn-primary" style="flex:1" onclick="loadCustomPassage()">Load</button>
+    </div>
+    <div class="small" style="margin-top:14px;color:var(--ink-mute)">
+      <strong>Suggestions for today:</strong>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+        <button class="btn btn-sm btn-outline" onclick="loadSuggestion('John 15:4-5')">John 15:4-5</button>
+        <button class="btn btn-sm btn-outline" onclick="loadSuggestion('Psalm 23')">Psalm 23</button>
+        <button class="btn btn-sm btn-outline" onclick="loadSuggestion('Matthew 11:28-30')">Matt 11:28-30</button>
+        <button class="btn btn-sm btn-outline" onclick="loadSuggestion('Philippians 4:6-7')">Phil 4:6-7</button>
+        <button class="btn btn-sm btn-outline" onclick="loadSuggestion('Romans 8:38-39')">Rom 8:38-39</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: PRAYER HISTORY -->
+<div class="modal-backdrop" id="modal-prayer-history" onclick="closeModalOnBackdrop(event,'modal-prayer-history')">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2 class="h2 serif" style="margin-bottom:14px;">Past entries</h2>
+    <input id="prayer-search" type="text" placeholder="Search entries…" oninput="renderPrayerHistory()" style="margin-bottom:14px" />
+    <div id="prayer-history-list"></div>
+    <button class="btn btn-outline" style="width:100%;margin-top:18px" onclick="closeModal('modal-prayer-history')">Done</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ============================================================
+// ANCHORED v0.1 — Single-file local-storage PWA
+// ============================================================
+
+const STORAGE_KEY = 'anchored_data_v1';
+
+const DAILY_LECTIO_POOL = [
+  { ref: 'John 15:4-5', text: 'Abide in me, and I in you. As the branch cannot bear fruit of itself, except it abide in the vine; so neither can ye, except ye abide in me. I am the vine, ye are the branches: He that abideth in me, and I in him, the same beareth much fruit: for apart from me ye can do nothing.' },
+  { ref: 'Psalm 23:1-3', text: 'Jehovah is my shepherd; I shall not want. He maketh me to lie down in green pastures; He leadeth me beside still waters. He restoreth my soul: He guideth me in the paths of righteousness for his name\'s sake.' },
+  { ref: 'Matthew 11:28-30', text: 'Come unto me, all ye that labor and are heavy laden, and I will give you rest. Take my yoke upon you, and learn of me; for I am meek and lowly in heart: and ye shall find rest unto your souls. For my yoke is easy, and my burden is light.' },
+  { ref: 'Philippians 4:6-7', text: 'In nothing be anxious; but in everything by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God, which passeth all understanding, shall guard your hearts and your thoughts in Christ Jesus.' },
+  { ref: 'Romans 8:38-39', text: 'For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor things present, nor things to come, nor powers, nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord.' },
+  { ref: 'Isaiah 40:31', text: 'But they that wait for Jehovah shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; they shall walk, and not faint.' },
+  { ref: 'Proverbs 3:5-6', text: 'Trust in Jehovah with all thy heart, and lean not upon thine own understanding: In all thy ways acknowledge him, and he will direct thy paths.' },
+  { ref: 'Psalm 46:10', text: 'Be still, and know that I am God: I will be exalted among the nations, I will be exalted in the earth.' },
+  { ref: '1 Peter 5:6-7', text: 'Humble yourselves therefore under the mighty hand of God, that he may exalt you in due time; casting all your anxiety upon him, because he careth for you.' },
+  { ref: 'James 1:2-4', text: 'Count it all joy, my brethren, when ye fall into manifold temptations; knowing that the proving of your faith worketh patience. And let patience have its perfect work, that ye may be perfect and entire, lacking in nothing.' },
+  { ref: 'Lamentations 3:22-23', text: 'It is of Jehovah\'s lovingkindnesses that we are not consumed, because his compassions fail not. They are new every morning; great is thy faithfulness.' },
+  { ref: 'Galatians 5:22-23', text: 'But the fruit of the Spirit is love, joy, peace, longsuffering, kindness, goodness, faithfulness, meekness, self-control; against such there is no law.' },
+  { ref: 'Hebrews 12:1-2', text: 'Therefore let us also, seeing we are compassed about with so great a cloud of witnesses, lay aside every weight, and the sin which doth so easily beset us, and let us run with patience the race that is set before us, looking unto Jesus the author and perfecter of our faith.' },
+  { ref: 'Psalm 139:23-24', text: 'Search me, O God, and know my heart: Try me, and know my thoughts; And see if there be any wicked way in me, And lead me in the way everlasting.' },
+  { ref: 'Colossians 3:1-2', text: 'If then ye were raised together with Christ, seek the things that are above, where Christ is, seated on the right hand of God. Set your mind on the things that are above, not on the things that are upon the earth.' },
+  { ref: 'Micah 6:8', text: 'He hath showed thee, O man, what is good; and what doth Jehovah require of thee, but to do justly, and to love kindness, and to walk humbly with thy God?' },
+  { ref: 'Psalm 27:14', text: 'Wait for Jehovah: Be strong, and let thy heart take courage; Yea, wait thou for Jehovah.' },
+  { ref: '2 Corinthians 12:9', text: 'And he hath said unto me, My grace is sufficient for thee: for my power is made perfect in weakness. Most gladly therefore will I rather glory in my weaknesses, that the power of Christ may rest upon me.' },
+  { ref: 'Romans 12:1-2', text: 'I beseech you therefore, brethren, by the mercies of God, to present your bodies a living sacrifice, holy, acceptable to God, which is your spiritual service. And be not fashioned according to this world: but be ye transformed by the renewing of your mind.' },
+  { ref: 'Psalm 51:10-12', text: 'Create in me a clean heart, O God; And renew a right spirit within me. Cast me not away from thy presence; And take not thy holy Spirit from me. Restore unto me the joy of thy salvation; And uphold me with a willing spirit.' },
+  { ref: 'Ephesians 3:17-19', text: 'That Christ may dwell in your hearts through faith; to the end that ye, being rooted and grounded in love, may be strong to apprehend with all the saints what is the breadth and length and height and depth, and to know the love of Christ which passeth knowledge.' },
+  { ref: 'John 14:27', text: 'Peace I leave with you; my peace I give unto you: not as the world giveth, give I unto you. Let not your heart be troubled, neither let it be fearful.' },
+  { ref: 'Psalm 1:2-3', text: 'But his delight is in the law of Jehovah; And on his law doth he meditate day and night. And he shall be like a tree planted by the streams of water, that bringeth forth its fruit in its season.' },
+  { ref: 'Matthew 6:33-34', text: 'But seek ye first his kingdom, and his righteousness; and all these things shall be added unto you. Be not therefore anxious for the morrow: for the morrow will be anxious for itself.' },
+  { ref: '1 Thessalonians 5:16-18', text: 'Rejoice always; pray without ceasing; in everything give thanks: for this is the will of God in Christ Jesus to you-ward.' },
+  { ref: 'Psalm 16:11', text: 'Thou wilt show me the path of life: In thy presence is fullness of joy; In thy right hand there are pleasures for evermore.' },
+  { ref: '2 Timothy 1:7', text: 'For God gave us not a spirit of fearfulness; but of power and love and discipline.' },
+  { ref: 'John 1:14', text: 'And the Word became flesh, and dwelt among us (and we beheld his glory, glory as of the only begotten from the Father), full of grace and truth.' },
+  { ref: 'Romans 5:3-5', text: 'And not only so, but we also rejoice in our tribulations: knowing that tribulation worketh stedfastness; and stedfastness, approvedness; and approvedness, hope: and hope putteth not to shame; because the love of God hath been shed abroad in our hearts.' },
+  { ref: 'Psalm 119:105', text: 'Thy word is a lamp unto my feet, And light unto my path.' }
+];
+
+const HABITS = [
+  { key: 'sleep', name: 'Sleep rhythm', def: 'Bed + wake within window' },
+  { key: 'quiet', name: 'Quiet time', def: 'Bible + stillness, any duration' },
+  { key: 'body', name: 'Body care', def: 'Intentional movement or recovery' },
+  { key: 'focus', name: 'Focused work block', def: 'One intentional block' },
+  { key: 'relational', name: 'Relational presence', def: 'One meaningful connection' },
+  { key: 'friction', name: 'Friction reduction', def: 'Simplify, prepare, reduce load' },
+  { key: 'limits', name: 'Adhered to limits', def: 'No new commitments added' }
+];
+
+const CAPACITY_DOMAINS = [
+  { key: 'sleep', title: 'Sleep consistency', label: 'Sleep', q: 'Did my sleep routine hold even when the week got busy?',
+    anchors: { 1: 'Chronically late, fragmented sleep; setbacks compounded', 2: 'Inconsistent nights; catching up on weekends', 3: 'Mostly consistent times; minor misses', 4: 'Rhythm held even during stress', 5: 'Sleep routine felt protective and restorative' } },
+  { key: 'physical', title: 'Physical resilience', label: 'Physical', q: 'How well did my body support my responsibilities?',
+    anchors: { 1: 'Pain or limitation dominated choices', 2: 'Had to constantly compensate', 3: 'Managed load with care', 4: 'Body supported plans reliably', 5: 'Felt physically capable and confident' } },
+  { key: 'mental', title: 'Mental clarity', label: 'Mental', q: 'How easily could I focus & think clearly when needed?',
+    anchors: { 1: 'Foggy, distracted, reactive', 2: 'Needed effort to think clearly', 3: 'Clear most of the time', 4: 'Focus came easily', 5: 'Clear, creative, decisive' } },
+  { key: 'emotional', title: 'Emotional bandwidth', label: 'Emotional', q: 'How much margin for people, patience, stress?',
+    anchors: { 1: 'Irritable, withdrawn, overwhelmed', 2: 'Thin patience; easily drained', 3: 'Present, functional, steady', 4: 'Patient, generous, adaptable', 5: 'Emotionally spacious and grounded' } },
+  { key: 'spiritual', title: 'Spiritual grounding', label: 'Spiritual', q: 'Did I operate from center, or from noise?',
+    anchors: { 1: 'Disconnected, rushed, spiritually dry', 2: 'Sporadic grounding', 3: 'Regular touchpoints; steady', 4: 'Felt anchored throughout the week', 5: 'Deeply centered, unhurried alignment' } }
+];
+
+const MOVEMENTS = [
+  { key: 'lectio', label: 'Read', latin: 'Lectio', prompt: 'What word or phrase catches you?', placeholder: 'A word, a phrase, what stood out…' },
+  { key: 'meditatio', label: 'Meditate', latin: 'Meditatio', prompt: 'Why this word, today? What is stirring?', placeholder: 'Sit with it. Turn it over…' },
+  { key: 'oratio', label: 'Pray', latin: 'Oratio', prompt: 'Respond. Speak back to him.', placeholder: 'Your prayer in response…' },
+  { key: 'contemplatio', label: 'Listen', latin: 'Contemplatio', prompt: 'Rest in his presence. What do you hear?', placeholder: 'Stillness, or what you hear…' },
+  { key: 'operatio', label: 'Live', latin: 'Operatio', prompt: 'What does this invite you to do or become?', placeholder: 'One concrete invitation…' }
+];
+
+// ----- STATE -----
+let state = loadState();
+let currentScreen = 'today';
+let currentTaskTab = 'do';
+let currentTaskView = 'list';
+let editingPrayerEntry = null;
+
+function defaultState() {
+  return {
+    settings: { theme: 'system', backupReminder: true, lastBackup: null },
+    weeks: {}, // keyed by isoWeek (YYYY-Www): { onePercent, commitments[3], capacity{}, notes }
+    days: {}, // keyed by YYYY-MM-DD: { habits{}, note }
+    tasks: [], // { id, title, imp, urg, diff, quadrant, done, createdAt }
+    prayer: {}, // keyed by YYYY-MM-DD: { passageRef, passageText, movements{}, links{} }
+    custom: { extraPassages: [] }
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    return { ...defaultState(), ...parsed,
+      settings: { ...defaultState().settings, ...(parsed.settings || {}) }
+    };
+  } catch (e) {
+    console.error('State load failed', e);
+    return defaultState();
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {
+    alert('Could not save. Your storage may be full.');
+  }
+}
+
+// ----- DATE HELPERS -----
+function todayKey(d) { d = d || new Date(); return d.toISOString().split('T')[0]; }
+function isoWeek(d) {
+  d = d || new Date();
+  const target = new Date(d.valueOf());
+  const dayNr = (d.getDay() + 6) % 7;
+  target.setDate(target.getDate() - dayNr + 3);
+  const firstThursday = target.valueOf();
+  target.setMonth(0, 1);
+  if (target.getDay() !== 4) target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+  const week = 1 + Math.ceil((firstThursday - target) / 604800000);
+  return `${d.getFullYear()}-W${String(week).padStart(2,'0')}`;
+}
+function formatDate(d, opts) {
+  return d.toLocaleDateString(undefined, opts || { weekday: 'long', month: 'long', day: 'numeric' });
+}
+function dayName(d) { return d.toLocaleDateString(undefined, { weekday: 'short' }); }
+function dayNum(d) { return d.getDate(); }
+function lastNDates(n) {
+  const arr = [];
+  for (let i = n - 1; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    arr.push(d);
+  }
+  return arr;
+}
+
+function getDay(dateKey) {
+  if (!state.days[dateKey]) state.days[dateKey] = { habits: {}, note: '' };
+  return state.days[dateKey];
+}
+function getWeek(weekKey) {
+  if (!state.weeks[weekKey]) state.weeks[weekKey] = {
+    onePercent: '', commitments: ['', '', ''], capacity: {}, notes: ''
+  };
+  return state.weeks[weekKey];
+}
+function getPrayer(dateKey) {
+  if (!state.prayer[dateKey]) state.prayer[dateKey] = {
+    passageRef: '', passageText: '', movements: {}
+  };
+  return state.prayer[dateKey];
+}
+
+// ----- THEME -----
+function applyTheme() {
+  const t = state.settings.theme;
+  if (t === 'system') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', t);
+}
+function setTheme(t) { state.settings.theme = t; saveState(); applyTheme(); }
+
+// ----- NAVIGATION -----
+function goToScreen(screen) {
+  currentScreen = screen;
+  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+  document.getElementById('screen-' + screen).classList.remove('hidden');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.screen === screen));
+  document.querySelectorAll('.screen')[0].parentElement.scrollTop = 0;
+  document.getElementById('screen-' + screen).scrollTop = 0;
+  if (screen === 'today') renderToday();
+  if (screen === 'tasks') renderTasks();
+  if (screen === 'prayer') renderPrayer();
+  if (screen === 'week') renderWeek();
+}
+
+// ----- TODAY SCREEN -----
+function renderToday() {
+  const now = new Date();
+  document.getElementById('today-date').textContent = formatDate(now).toUpperCase();
+  document.getElementById('today-greeting').textContent = greetingForHour(now.getHours());
+
+  // Backup reminder banner
+  checkBackupReminder();
+
+  // 1% display
+  const week = getWeek(isoWeek());
+  const opEl = document.getElementById('one-percent-display');
+  if (week.onePercent) {
+    opEl.innerHTML = `
+      <div class="one-percent-card">
+        <div class="tiny">This week's 1%</div>
+        <div class="text">${escapeHTML(week.onePercent)}</div>
+      </div>`;
+  } else {
+    opEl.innerHTML = `
+      <div class="one-percent-card empty" onclick="goToScreen('week')" style="cursor:pointer">
+        <div class="tiny">This week's 1%</div>
+        <div class="text">Tap to set the small lever for this week →</div>
+      </div>`;
+  }
+
+  // Must-do tasks
+  const doNow = state.tasks.filter(t => t.quadrant === 'do' && !t.done);
+  document.getElementById('must-do-count').textContent = doNow.length ? `${doNow.length} item${doNow.length>1?'s':''}` : '';
+  const listEl = document.getElementById('must-do-list');
+  if (doNow.length === 0) {
+    listEl.innerHTML = `<div class="card-soft small italic">Nothing urgent. Good.</div>`;
+  } else {
+    listEl.innerHTML = doNow.map(t => taskRowHTML(t, true)).join('');
+  }
+
+  // Habits — 4-day grid
+  renderHabitGrid();
+
+  // Note
+  const today = getDay(todayKey());
+  document.getElementById('day-note').value = today.note || '';
+  document.getElementById('note-count').textContent = (today.note || '').length;
+
+  // Capacity pulse
+  const lastCap = getMostRecentCapacity();
+  const capGrid = document.getElementById('capacity-grid');
+  capGrid.innerHTML = CAPACITY_DOMAINS.map(d => {
+    const v = lastCap ? lastCap[d.key] : null;
+    const cls = v == null ? 'empty' : v <= 2 ? 'low' : v >= 4 ? 'high' : 'mid';
+    return `<div class="capacity-cell"><div class="capacity-num ${cls}">${v || '–'}</div><div class="capacity-label">${d.label}</div></div>`;
+  }).join('');
+  document.getElementById('capacity-note').textContent = capacityNote(lastCap);
+}
+
+function greetingForHour(h) {
+  if (h < 12) return 'Good morning';
+  if (h < 17) return 'Good afternoon';
+  return 'Good evening';
+}
+
+function getMostRecentCapacity() {
+  const weekKeys = Object.keys(state.weeks).sort().reverse();
+  for (const wk of weekKeys) {
+    const cap = state.weeks[wk].capacity;
+    if (cap && Object.keys(cap).length === 5) return cap;
+  }
+  return null;
+}
+
+function capacityNote(cap) {
+  if (!cap) return 'No capacity rating yet. Set one on the Week screen.';
+  const entries = Object.entries(cap);
+  const lowest = entries.reduce((a,b) => b[1] < a[1] ? b : a);
+  const highest = entries.reduce((a,b) => b[1] > a[1] ? b : a);
+  if (lowest[1] >= 4 && entries.every(e => e[1] >= 4)) return 'A week of all-strong is suspicious. Worth a sanity check on the lowest.';
+  if (lowest[1] === 1) return `${CAPACITY_DOMAINS.find(d => d.key === lowest[0]).label} at 1. One 1 matters more than three 4s.`;
+  const hints = {
+    sleep: 'Sleep dropping first usually compounds everything else.',
+    physical: 'Physical drops often trace back to recovery debt.',
+    mental: 'Mental clarity drops usually point to sleep, overload, or poor boundaries.',
+    emotional: 'Emotional bandwidth dropping first is often a capacity early-warning signal.',
+    spiritual: 'Spiritual drift usually shows up as rush. Continuity matters more than duration.'
+  };
+  if (lowest[1] <= 2) return hints[lowest[0]] || '';
+  return '';
+}
+
+function renderHabitGrid() {
+  const dates = lastNDates(4);
+  const todayK = todayKey();
+
+  // Day header
+  const headerHTML = `<div class="habit-day-header">
+    <div></div>
+    ${dates.map(d => {
+      const k = todayKey(d);
+      const isToday = k === todayK;
+      return `<div class="habit-day-col ${isToday ? 'today' : ''}"><div class="dow">${dayName(d)}</div><div class="dom">${dayNum(d)}</div></div>`;
+    }).join('')}
+  </div>`;
+
+  // Rows
+  const rowsHTML = HABITS.map(h => {
+    const cellsHTML = dates.map(d => {
+      const k = todayKey(d);
+      const day = state.days[k] || { habits: {} };
+      const checked = day.habits && day.habits[h.key];
+      const isToday = k === todayK;
+      return `<div class="habit-cell" onclick="toggleHabit('${h.key}','${k}')">
+        <div class="habit-box ${isToday ? 'today' : ''} ${checked ? 'checked' : ''}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="habit-item">
+      <div>
+        <div class="habit-name">${h.name}</div>
+        <div class="habit-def">${h.def}</div>
+      </div>
+      ${cellsHTML}
+    </div>`;
+  }).join('');
+
+  document.getElementById('habit-grid').innerHTML = headerHTML + rowsHTML;
+
+  // Today's tier
+  const todayHabits = (state.days[todayK] && state.days[todayK].habits) || {};
+  const count = Object.values(todayHabits).filter(v => v).length;
+  const tierEl = document.getElementById('today-tier');
+  let cls = '', label = `${count} of 7`;
+  if (count === 7) { cls = 'bonus'; label = '7 of 7 · Bonus'; }
+  else if (count >= 5) { cls = 'strong'; label = `${count} of 7 · Strong`; }
+  else if (count >= 4) { cls = 'fit'; label = `${count} of 7 · Fit`; }
+  tierEl.className = 'tier-pill ' + cls;
+  tierEl.textContent = label;
+}
+
+function toggleHabit(habitKey, dateKey) {
+  const day = getDay(dateKey);
+  if (!day.habits) day.habits = {};
+  day.habits[habitKey] = !day.habits[habitKey];
+  saveState();
+  renderHabitGrid();
+}
+
+document.getElementById('day-note').addEventListener('input', e => {
+  const today = getDay(todayKey());
+  today.note = e.target.value;
+  document.getElementById('note-count').textContent = e.target.value.length;
+  saveState();
+});
+
+// ----- TASKS SCREEN -----
+function setTaskView(v) {
+  currentTaskView = v;
+  document.getElementById('view-list').classList.toggle('active', v === 'list');
+  document.getElementById('view-matrix').classList.toggle('active', v === 'matrix');
+  document.getElementById('tasks-list-view').style.display = v === 'list' ? 'block' : 'none';
+  document.getElementById('tasks-matrix-view').style.display = v === 'matrix' ? 'block' : 'none';
+  if (v === 'matrix') renderMatrix();
+}
+
+function setTaskTab(t) {
+  currentTaskTab = t;
+  document.querySelectorAll('#task-tabs .tab').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
+  renderTaskList();
+}
+
+function renderTasks() {
+  document.getElementById('count-do').textContent = state.tasks.filter(x => x.quadrant === 'do' && !x.done).length;
+  document.getElementById('count-schedule').textContent = state.tasks.filter(x => x.quadrant === 'schedule' && !x.done).length;
+  document.getElementById('count-delegate').textContent = state.tasks.filter(x => x.quadrant === 'delegate' && !x.done).length;
+  document.getElementById('count-drop').textContent = state.tasks.filter(x => x.quadrant === 'drop' && !x.done).length;
+  renderTaskList();
+  if (currentTaskView === 'matrix') renderMatrix();
+}
+
+function quadrantContext(q) {
+  return {
+    do: 'Important and urgent. Protect time for these today.',
+    schedule: 'Important but not urgent. Block time before they become fires.',
+    delegate: 'Urgent but not important. Hand off or shrink.',
+    drop: 'Neither important nor urgent. Honest question — does this need to happen?'
+  }[q];
+}
+
+function renderTaskList() {
+  document.getElementById('tab-context').textContent = quadrantContext(currentTaskTab);
+  const tasks = state.tasks.filter(t => t.quadrant === currentTaskTab);
+  const container = document.getElementById('task-list-container');
+  if (tasks.length === 0) {
+    container.innerHTML = `<div class="empty-state"><h2 class="h2 serif">Nothing here.</h2><p class="body">${currentTaskTab === 'drop' ? 'Clear deck.' : currentTaskTab === 'do' ? 'No urgent must-dos. Good.' : 'Empty.'}</p></div>`;
+    return;
+  }
+  container.innerHTML = tasks.map(t => taskRowHTML(t, false)).join('');
+}
+
+function taskRowHTML(t, brief) {
+  const checkClass = `check ${t.quadrant} ${t.done ? 'checked' : ''}`;
+  const titleClass = `task-title ${t.done ? 'struck' : ''}`;
+  const tagPill = difficultyTag(t.imp, t.urg, t.diff);
+  return `<div class="task-row ${t.quadrant}">
+    <div class="${checkClass}" onclick="toggleTask('${t.id}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div class="${titleClass}">${escapeHTML(t.title)}</div>
+      ${brief ? '' : `<div class="task-meta">
+        <span class="task-meta-tag">I:${t.imp} · U:${t.urg} · D:${t.diff}</span>
+        ${tagPill ? '<span class="pill ' + tagPill.cls + '">' + tagPill.label + '</span>' : ''}
+      </div>`}
+    </div>
+    ${brief ? '' : `<div class="task-actions">
+      <button onclick="deleteTask('${t.id}')" aria-label="Delete">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+      </button>
+    </div>`}
+  </div>`;
+}
+
+function difficultyTag(imp, urg, diff) {
+  const important = imp >= 4;
+  if (important && diff <= 2) return { cls: 'pill-olive', label: '⚡ Quick win' };
+  if (!important && diff >= 4) return { cls: 'pill-gold', label: '⚠ Energy trap' };
+  if (diff >= 4) return { cls: 'pill-indigo', label: 'Heavy lift' };
+  return null;
+}
+
+function renderMatrix() {
+  const cells = ['do', 'schedule', 'delegate', 'drop'];
+  cells.forEach(q => {
+    const items = state.tasks.filter(t => t.quadrant === q && !t.done);
+    const el = document.getElementById('matrix-' + q + '-items');
+    if (items.length === 0) {
+      el.innerHTML = '<div class="small italic" style="color:var(--ink-faint);padding:2px 4px">—</div>';
+    } else {
+      el.innerHTML = items.slice(0, 5).map(t => `<div class="matrix-item" title="${escapeHTML(t.title)}">${escapeHTML(t.title)}</div>`).join('') +
+        (items.length > 5 ? `<div class="small italic" style="margin-top:2px">+${items.length - 5} more</div>` : '');
+    }
+  });
+}
+
+function toggleTask(id) {
+  const t = state.tasks.find(x => x.id === id);
+  if (!t) return;
+  t.done = !t.done;
+  saveState();
+  if (currentScreen === 'today') renderToday();
+  else renderTasks();
+}
+
+function deleteTask(id) {
+  if (!confirm('Delete this task?')) return;
+  state.tasks = state.tasks.filter(t => t.id !== id);
+  saveState();
+  renderTasks();
+}
+
+function quadrantFor(imp, urg) {
+  const important = imp >= 4, urgent = urg >= 4;
+  if (important && urgent) return 'do';
+  if (important && !urgent) return 'schedule';
+  if (!important && urgent) return 'delegate';
+  return 'drop';
+}
+
+const IMP_WORDS = {1:'Trivial',2:'Low impact',3:'Useful',4:'High impact',5:'Mission critical'};
+const URG_WORDS = {1:'No rush',2:'Can wait',3:'Soon',4:'This week',5:'Today'};
+const DIFF_WORDS = {1:'Quick',2:'Light lift',3:'Moderate',4:'Heavy',5:'Grueling'};
+const QUADRANT_INFO = {
+  do: { name: 'Do now', action: 'Important and urgent. This is today\'s work.', color: 'var(--rust)', bg: 'var(--rust-soft)' },
+  schedule: { name: 'Schedule', action: 'Important but not urgent. Block time for this.', color: 'var(--indigo)', bg: 'var(--indigo-soft)' },
+  delegate: { name: 'Delegate or shrink', action: 'Urgent but not important. Can someone else handle it?', color: 'var(--gold)', bg: 'var(--gold-soft)' },
+  drop: { name: 'Drop or defer', action: 'Not important, not urgent. Does this need to happen at all?', color: 'var(--slate)', bg: 'var(--slate-soft)' }
+};
+
+function openTaskEntry() {
+  document.getElementById('task-title-input').value = '';
+  document.getElementById('imp-slider').value = 3;
+  document.getElementById('urg-slider').value = 3;
+  document.getElementById('diff-slider').value = 3;
+  updateTaskEntryPreview();
+  document.getElementById('modal-task-entry').classList.add('open');
+  setTimeout(() => document.getElementById('task-title-input').focus(), 50);
+}
+
+function updateTaskEntryPreview() {
+  const imp = +document.getElementById('imp-slider').value;
+  const urg = +document.getElementById('urg-slider').value;
+  const diff = +document.getElementById('diff-slider').value;
+  document.getElementById('imp-label').textContent = `${imp} — ${IMP_WORDS[imp]}`;
+  document.getElementById('urg-label').textContent = `${urg} — ${URG_WORDS[urg]}`;
+  document.getElementById('diff-label').textContent = `${diff} — ${DIFF_WORDS[diff]}`;
+  const q = quadrantFor(imp, urg);
+  const info = QUADRANT_INFO[q];
+  const tag = difficultyTag(imp, urg, diff);
+  document.getElementById('quadrant-result').style.background = info.bg;
+  document.getElementById('quadrant-result').style.borderColor = info.color;
+  document.getElementById('quadrant-result').style.color = info.color;
+  document.getElementById('quadrant-result').innerHTML = `
+    <div style="font-weight:600;margin-bottom:4px;">${info.name}</div>
+    <div style="font-size:12px;line-height:1.5;">${info.action}</div>
+    ${tag ? '<div style="margin-top:8px"><span class="pill ' + tag.cls + '">' + tag.label + '</span></div>' : ''}`;
+}
+
+['imp-slider','urg-slider','diff-slider'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateTaskEntryPreview);
+});
+
+function saveTask() {
+  const title = document.getElementById('task-title-input').value.trim();
+  if (!title) { alert('Add a title first.'); return; }
+  const imp = +document.getElementById('imp-slider').value;
+  const urg = +document.getElementById('urg-slider').value;
+  const diff = +document.getElementById('diff-slider').value;
+  state.tasks.push({
+    id: 't_' + Date.now() + '_' + Math.random().toString(36).slice(2,8),
+    title, imp, urg, diff,
+    quadrant: quadrantFor(imp, urg),
+    done: false,
+    createdAt: new Date().toISOString()
+  });
+  saveState();
+  closeModal('modal-task-entry');
+  renderTasks();
+}
+
+// ----- PRAYER SCREEN -----
+function renderPrayer() {
+  const k = todayKey();
+  const p = getPrayer(k);
+  const now = new Date();
+  document.getElementById('prayer-date').textContent = formatDate(now).toUpperCase();
+
+  // If no passage selected, pick from today's lectio rotation
+  if (!p.passageRef) {
+    const idx = dayOfYear(now) % DAILY_LECTIO_POOL.length;
+    const passage = DAILY_LECTIO_POOL[idx];
+    p.passageRef = passage.ref;
+    p.passageText = passage.text;
+    saveState();
+  }
+
+  document.getElementById('passage-ref-text').innerHTML = `${escapeHTML(p.passageRef)} <span style="color:var(--ink-faint);font-weight:400;font-size:10px;margin-left:6px;">ASV</span>`;
+  document.getElementById('passage-text').textContent = `"${p.passageText}"`;
+
+  // Movements
+  const container = document.getElementById('movements-container');
+  container.innerHTML = MOVEMENTS.map(m => {
+    const v = p.movements[m.key] || '';
+    return `<div class="movement-block">
+      <div class="movement-head">
+        <span class="movement-num ${m.key}">${MOVEMENTS.findIndex(x => x.key === m.key) + 1}</span>
+        <span class="movement-name">${m.label}</span>
+        <span class="movement-latin">${m.latin}</span>
+      </div>
+      <p class="movement-prompt">${m.prompt}</p>
+      <textarea data-movement="${m.key}" placeholder="${m.placeholder}" rows="2">${escapeHTML(v)}</textarea>
+      <div class="dictation-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+        Tip: use your keyboard's mic to dictate
+      </div>
+    </div>`;
+  }).join('');
+
+  // Wire textareas
+  container.querySelectorAll('textarea').forEach(ta => {
+    autoGrow(ta);
+    ta.addEventListener('input', () => {
+      autoGrow(ta);
+      const key = ta.dataset.movement;
+      p.movements[key] = ta.value;
+      saveState();
+      if (key === 'operatio') renderOperatioCarry(ta.value);
+    });
+  });
+
+  renderOperatioCarry(p.movements.operatio || '');
+}
+
+function autoGrow(ta) {
+  ta.style.height = 'auto';
+  ta.style.height = Math.max(60, ta.scrollHeight + 2) + 'px';
+}
+
+function renderOperatioCarry(text) {
+  const el = document.getElementById('operatio-carry-forward');
+  if (!text || text.trim().length < 6) { el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="carry-forward">
+    <div class="tiny">CARRY FORWARD?</div>
+    <div class="body">Want to link this to this week's 1% improvement or Top 3 commitments?</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="btn btn-sm" style="background:white;border:1px solid var(--olive);color:var(--olive)" onclick="carryToOnePercent()">Set as 1%</button>
+      <button class="btn btn-sm" style="background:white;border:1px solid var(--olive);color:var(--olive)" onclick="carryToTop3()">Add to Top 3</button>
+      <button class="btn btn-sm btn-ghost" style="color:var(--olive)" onclick="document.getElementById('operatio-carry-forward').innerHTML=''">Not yet</button>
+    </div>
+  </div>`;
+}
+
+function carryToOnePercent() {
+  const p = getPrayer(todayKey());
+  const text = (p.movements.operatio || '').trim();
+  if (!text) return;
+  const week = getWeek(isoWeek());
+  if (week.onePercent && !confirm('This will replace this week\'s 1%. Continue?')) return;
+  week.onePercent = text.length > 140 ? text.slice(0, 137) + '…' : text;
+  saveState();
+  alert('Set as this week\'s 1%.');
+  document.getElementById('operatio-carry-forward').innerHTML = '';
+}
+
+function carryToTop3() {
+  const p = getPrayer(todayKey());
+  const text = (p.movements.operatio || '').trim();
+  if (!text) return;
+  const week = getWeek(isoWeek());
+  const emptyIdx = week.commitments.findIndex(c => !c);
+  if (emptyIdx === -1) { alert('All three commitments are filled. Edit them on the Week screen.'); return; }
+  week.commitments[emptyIdx] = text;
+  saveState();
+  alert(`Added as commitment ${emptyIdx + 1}.`);
+  document.getElementById('operatio-carry-forward').innerHTML = '';
+}
+
+function dayOfYear(d) {
+  const start = new Date(d.getFullYear(), 0, 0);
+  return Math.floor((d - start) / 86400000);
+}
+
+function openPassagePicker() {
+  document.getElementById('passage-ref-input').value = '';
+  document.getElementById('passage-error').style.display = 'none';
+  document.getElementById('modal-passage').classList.add('open');
+  setTimeout(() => document.getElementById('passage-ref-input').focus(), 50);
+}
+
+async function loadCustomPassage() {
+  const ref = document.getElementById('passage-ref-input').value.trim();
+  if (!ref) return;
+  const errEl = document.getElementById('passage-error');
+  errEl.style.display = 'none';
+  try {
+    const res = await fetch(`https://bible-api.com/${encodeURIComponent(ref)}?translation=asv`);
+    if (!res.ok) throw new Error('Not found');
+    const data = await res.json();
+    if (!data.text) throw new Error('Empty');
+    const p = getPrayer(todayKey());
+    p.passageRef = data.reference;
+    p.passageText = data.text.trim().replace(/\s+/g, ' ');
+    saveState();
+    closeModal('modal-passage');
+    renderPrayer();
+  } catch (e) {
+    errEl.textContent = 'Could not find that passage. Try "John 15:4-5" or "Psalm 23".';
+    errEl.style.display = 'block';
+  }
+}
+
+function loadSuggestion(ref) {
+  document.getElementById('passage-ref-input').value = ref;
+  loadCustomPassage();
+}
+
+function openPrayerHistory() {
+  document.getElementById('prayer-search').value = '';
+  renderPrayerHistory();
+  document.getElementById('modal-prayer-history').classList.add('open');
+}
+
+function renderPrayerHistory() {
+  const q = document.getElementById('prayer-search').value.toLowerCase().trim();
+  const entries = Object.entries(state.prayer)
+    .filter(([_, p]) => p.passageRef && (Object.values(p.movements || {}).some(v => v && v.length > 0)))
+    .sort(([a], [b]) => b.localeCompare(a));
+
+  const filtered = q ? entries.filter(([k, p]) => {
+    const blob = (p.passageRef + ' ' + p.passageText + ' ' + Object.values(p.movements || {}).join(' ')).toLowerCase();
+    return blob.includes(q);
+  }) : entries;
+
+  const listEl = document.getElementById('prayer-history-list');
+  if (filtered.length === 0) {
+    listEl.innerHTML = `<div class="empty-state"><p class="body">${q ? 'No matches.' : 'No past entries yet.'}</p></div>`;
+    return;
+  }
+  listEl.innerHTML = filtered.map(([dateKey, p]) => {
+    const preview = Object.values(p.movements || {}).find(v => v && v.length > 0) || '';
+    return `<div class="card" onclick="loadPastEntry('${dateKey}')" style="cursor:pointer">
+      <div class="tiny">${dateKey}</div>
+      <div style="font-family:'Fraunces',serif;font-weight:500;margin-top:2px">${escapeHTML(p.passageRef)}</div>
+      <div class="small" style="margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${escapeHTML(preview)}</div>
+    </div>`;
+  }).join('');
+}
+
+function loadPastEntry(dateKey) {
+  // For now, just close and explain — full past-entry editing comes in v0.2
+  alert(`Past entry for ${dateKey}. Full review coming in v0.2.`);
+  closeModal('modal-prayer-history');
+}
+
+// ----- WEEK SCREEN -----
+function renderWeek() {
+  const wk = isoWeek();
+  const week = getWeek(wk);
+  document.getElementById('week-range').textContent = weekRangeLabel().toUpperCase();
+
+  document.getElementById('one-percent-input').value = week.onePercent || '';
+  document.getElementById('op-count').textContent = (week.onePercent || '').length;
+
+  renderCommitments(week);
+  renderCapacityRating(week);
+
+  document.getElementById('weekly-notes').value = week.notes || '';
+
+  renderLookback();
+}
+
+function weekRangeLabel() {
+  const now = new Date();
+  const dow = (now.getDay() + 6) % 7;
+  const monday = new Date(now); monday.setDate(now.getDate() - dow);
+  const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6);
+  const m = monday.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  const s = sunday.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  return `Week of ${m} – ${s}`;
+}
+
+document.getElementById('one-percent-input').addEventListener('input', e => {
+  const week = getWeek(isoWeek());
+  week.onePercent = e.target.value;
+  document.getElementById('op-count').textContent = e.target.value.length;
+  saveState();
+});
+
+document.getElementById('weekly-notes').addEventListener('input', e => {
+  const week = getWeek(isoWeek());
+  week.notes = e.target.value;
+  saveState();
+});
+
+function renderCommitments(week) {
+  const container = document.getElementById('commitments-list');
+  container.innerHTML = week.commitments.map((c, idx) => {
+    const badge = badgeForCommitment(c);
+    return `<div class="commitment-row">
+      <div class="commitment-num">${idx + 1}</div>
+      <input type="text" data-idx="${idx}" placeholder="${idx === 2 ? 'Add a third…' : 'Commitment ' + (idx+1) + '…'}" value="${escapeHTML(c || '')}" />
+      ${badge}
+    </div>`;
+  }).join('');
+  container.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', e => {
+      const idx = +e.target.dataset.idx;
+      week.commitments[idx] = e.target.value;
+      saveState();
+      const newBadge = badgeForCommitment(e.target.value);
+      const parent = e.target.parentElement;
+      const existingBadge = parent.querySelector('.outcome-badge, .input-badge');
+      if (existingBadge) existingBadge.remove();
+      if (newBadge) parent.insertAdjacentHTML('beforeend', newBadge);
+    });
+  });
+}
+
+function badgeForCommitment(text) {
+  if (!text || !text.trim()) return '';
+  const outcomeRe = /\b(lose|gain|be|feel|become|achieve|reach|hit|earn|win)\b/i;
+  if (outcomeRe.test(text)) return '<span class="outcome-badge">Outcome?</span>';
+  return '<span class="input-badge">Input ✓</span>';
+}
+
+function renderCapacityRating(week) {
+  const container = document.getElementById('capacity-rating-list');
+  container.innerHTML = CAPACITY_DOMAINS.map(d => {
+    const v = week.capacity[d.key];
+    const buttons = [1,2,3,4,5].map(n => {
+      const sel = n === v;
+      return `<button class="anchor-btn ${sel ? 'selected r' + n : ''}" onclick="rateCapacity('${d.key}',${n})">${n}</button>`;
+    }).join('');
+    return `<div style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
+        <span class="h3 serif" style="font-family:'Fraunces',serif;font-size:15px;font-weight:500">${d.title}</span>
+        <span class="small" style="font-family:'Fraunces',serif;font-size:18px;color:${v == null ? 'var(--ink-faint)' : capacityColor(v)}">${v || '–'}</span>
+      </div>
+      <p class="small" style="margin-bottom:6px">${d.q}</p>
+      ${v != null ? '<div class="anchor-desc">' + escapeHTML(d.anchors[v]) + '</div>' : ''}
+      <div class="anchor-rating">${buttons}</div>
+    </div>`;
+  }).join('');
+}
+
+function capacityColor(v) {
+  if (v === 1) return 'var(--rust)';
+  if (v === 2) return 'var(--gold)';
+  if (v === 3) return 'var(--slate)';
+  if (v === 4) return 'var(--indigo)';
+  return 'var(--olive)';
+}
+
+function rateCapacity(key, val) {
+  const week = getWeek(isoWeek());
+  week.capacity[key] = val;
+  saveState();
+  renderCapacityRating(week);
+}
+
+function renderLookback() {
+  const container = document.getElementById('lookback-content');
+  const weeksWithCapacity = Object.values(state.weeks).filter(w => w.capacity && Object.keys(w.capacity).length === 5);
+  const daysWithHabits = Object.values(state.days).filter(d => d.habits && Object.keys(d.habits).length > 0);
+
+  if (weeksWithCapacity.length < 4 && daysWithHabits.length < 14) {
+    container.innerHTML = `<div class="lookback-stub">
+      <h2 class="h2 serif">Patterns gather with time</h2>
+      <p class="body">Keep logging. Pattern analysis activates once you have ~4 weeks of capacity ratings or 14 days of habits.</p>
+      <p class="small" style="margin-top:10px">So far: <strong>${daysWithHabits.length}</strong> day${daysWithHabits.length !== 1 ? 's' : ''} of habits · <strong>${weeksWithCapacity.length}</strong> week${weeksWithCapacity.length !== 1 ? 's' : ''} rated</p>
+    </div>`;
+    return;
+  }
+
+  // Compute restart strength: average days between a miss and next completion for any habit
+  let restartTimes = [];
+  HABITS.forEach(h => {
+    const dates = Object.keys(state.days).sort();
+    let lastMiss = null;
+    for (const d of dates) {
+      const day = state.days[d];
+      const done = day.habits && day.habits[h.key];
+      if (!done && lastMiss === null) lastMiss = d;
+      if (done && lastMiss !== null) {
+        const dDate = new Date(d), missDate = new Date(lastMiss);
+        const days = Math.round((dDate - missDate) / 86400000);
+        if (days > 0) restartTimes.push(days);
+        lastMiss = null;
+      }
+    }
+  });
+  const avgRestart = restartTimes.length ? (restartTimes.reduce((a,b) => a+b, 0) / restartTimes.length).toFixed(1) : '–';
+
+  // Fit Day rate
+  const fitDays = daysWithHabits.filter(d => Object.values(d.habits).filter(v=>v).length >= 4).length;
+  const fitRate = daysWithHabits.length ? Math.round(fitDays / daysWithHabits.length * 100) : 0;
+
+  // Habit completion rates
+  const habitRates = HABITS.map(h => {
+    const total = daysWithHabits.length;
+    const done = daysWithHabits.filter(d => d.habits[h.key]).length;
+    return { h, rate: total ? Math.round(done / total * 100) : 0 };
+  });
+
+  // Lowest-rated capacity domain over last weeks
+  let domainAverages = {};
+  CAPACITY_DOMAINS.forEach(d => {
+    const vals = weeksWithCapacity.map(w => w.capacity[d.key]).filter(v => v != null);
+    domainAverages[d.key] = vals.length ? vals.reduce((a,b) => a+b, 0) / vals.length : null;
+  });
+  const lowestDomain = Object.entries(domainAverages).filter(([_,v]) => v != null).sort(([_,a], [__,b]) => a - b)[0];
+
+  container.innerHTML = `
+    ${lowestDomain ? `<div class="card" style="background:var(--indigo-soft);border-color:var(--indigo)">
+      <div class="tiny" style="color:var(--indigo)">WORTH SITTING WITH</div>
+      <p style="margin-top:6px;font-family:'Fraunces',serif;font-size:15px;color:var(--indigo);line-height:1.5">
+        ${CAPACITY_DOMAINS.find(d => d.key === lowestDomain[0]).title} has averaged <strong>${lowestDomain[1].toFixed(1)}</strong> across ${weeksWithCapacity.length} weeks — the lowest of the five domains.
+      </p>
+    </div>` : ''}
+
+    <div class="card">
+      <div class="tiny">RESTART STRENGTH</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+        <div>
+          <div style="font-family:'Fraunces',serif;font-size:24px">${avgRestart}<span style="font-size:11px;color:var(--ink-mute)"> days</span></div>
+          <div class="small">Avg restart after a miss</div>
+        </div>
+        <div>
+          <div style="font-family:'Fraunces',serif;font-size:24px">${fitRate}<span style="font-size:11px;color:var(--ink-mute)">%</span></div>
+          <div class="small">Fit Days (4+ of 7)</div>
+        </div>
+      </div>
+      <p class="small italic" style="margin-top:10px">Restart speed > streaks. Bouncing back quickly is the real measure of fitness.</p>
+    </div>
+
+    <div class="card">
+      <div class="tiny">HABIT COMPLETION</div>
+      <div style="margin-top:10px">
+        ${habitRates.sort((a,b) => a.rate - b.rate).map(({h, rate}) => `
+          <div style="display:grid;grid-template-columns:110px 1fr 32px;gap:8px;align-items:center;margin-bottom:6px">
+            <span class="small">${h.name}</span>
+            <div style="height:5px;background:var(--bg-muted);border-radius:3px;overflow:hidden">
+              <div style="width:${rate}%;height:100%;background:${rate < 50 ? 'var(--gold)' : rate < 70 ? 'var(--indigo)' : 'var(--olive)'}"></div>
+            </div>
+            <span class="small" style="text-align:right">${rate}%</span>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <p class="small italic" style="margin-top:14px;padding:10px;background:var(--bg-soft);border-radius:8px">${weeksWithCapacity.length < 12 ? `Patterns gain confidence with time. ${weeksWithCapacity.length} weeks logged — treat what you see as questions, not conclusions.` : 'Treat correlations as questions, not conclusions.'}</p>
+  `;
+}
+
+// ----- SETTINGS / BACKUP -----
+function openSettings() {
+  document.getElementById('theme-select').value = state.settings.theme;
+  document.getElementById('backup-reminder-toggle').classList.toggle('on', !!state.settings.backupReminder);
+  if (state.settings.lastBackup) {
+    const d = new Date(state.settings.lastBackup);
+    const days = Math.floor((Date.now() - d) / 86400000);
+    document.getElementById('last-backup-info').textContent = `${days === 0 ? 'Today' : days === 1 ? 'Yesterday' : days + ' days ago'} (${d.toLocaleDateString()})`;
+  } else {
+    document.getElementById('last-backup-info').textContent = 'Never backed up';
+  }
+  document.getElementById('modal-settings').classList.add('open');
+}
+
+function toggleBackupReminder() {
+  state.settings.backupReminder = !state.settings.backupReminder;
+  saveState();
+  document.getElementById('backup-reminder-toggle').classList.toggle('on', state.settings.backupReminder);
+}
+
+function exportBackup() {
+  const payload = { app: 'Anchored', version: 1, exportedAt: new Date().toISOString(), data: state };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `anchored-backup-${todayKey()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  state.settings.lastBackup = new Date().toISOString();
+  saveState();
+  if (currentScreen === 'today') renderToday();
+}
+
+function importBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (!parsed.data || parsed.app !== 'Anchored') throw new Error('Not an Anchored backup');
+      if (!confirm('Importing will replace your current data. Continue?')) return;
+      state = { ...defaultState(), ...parsed.data,
+        settings: { ...defaultState().settings, ...(parsed.data.settings || {}) }
+      };
+      saveState();
+      applyTheme();
+      alert('Restored.');
+      closeModal('modal-settings');
+      goToScreen('today');
+    } catch (e) {
+      alert('Could not import: ' + e.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function checkBackupReminder() {
+  const el = document.getElementById('backup-banner');
+  if (!state.settings.backupReminder) { el.style.display = 'none'; return; }
+  const last = state.settings.lastBackup ? new Date(state.settings.lastBackup) : null;
+  const hasData = Object.keys(state.days).length > 0 || Object.keys(state.weeks).length > 0;
+  if (!hasData) { el.style.display = 'none'; return; }
+  if (!last || (Date.now() - last.getTime()) > 7 * 86400000) {
+    const days = last ? Math.floor((Date.now() - last) / 86400000) : 'many';
+    el.innerHTML = `<div class="banner">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      <div style="flex:1">
+        <div>Time for a backup — it's been ${days === 'many' ? 'a while' : days + ' days'}.</div>
+        <div style="margin-top:6px;display:flex;gap:6px">
+          <button class="btn btn-sm btn-primary" onclick="exportBackup()">Download backup</button>
+          <button class="btn btn-sm btn-ghost" onclick="dismissBackupBanner()">Later</button>
+        </div>
+      </div>
+    </div>`;
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+function dismissBackupBanner() {
+  // Snooze by a day
+  const t = new Date();
+  t.setDate(t.getDate() - 6);
+  state.settings.lastBackup = t.toISOString();
+  saveState();
+  document.getElementById('backup-banner').style.display = 'none';
+}
+
+function confirmReset() {
+  if (!confirm('This will delete ALL your data. Export a backup first if you want to keep it. Continue?')) return;
+  if (!confirm('Really sure? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = defaultState();
+  applyTheme();
+  closeModal('modal-settings');
+  goToScreen('today');
+}
+
+// ----- MODAL HELPERS -----
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeModalOnBackdrop(e, id) { if (e.target.id === id) closeModal(id); }
+
+// ----- UTILS -----
+function escapeHTML(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// ----- BOOT -----
+function init() {
+  applyTheme();
+  // Service worker for offline (PWA)
+  if ('serviceWorker' in navigator) {
+    const swCode = `
+      self.addEventListener('install', e => self.skipWaiting());
+      self.addEventListener('activate', e => self.clients.claim());
+      self.addEventListener('fetch', e => {
+        if (e.request.method !== 'GET') return;
+        e.respondWith(
+          caches.open('anchored-v1').then(cache =>
+            cache.match(e.request).then(cached =>
+              cached || fetch(e.request).then(res => {
+                if (res.ok && e.request.url.startsWith(self.location.origin)) {
+                  cache.put(e.request, res.clone());
+                }
+                return res;
+              }).catch(() => cached)
+            )
+          )
+        );
+      });
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const url = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url).catch(() => {}); // silent fail
+  }
+  goToScreen('today');
+}
+
+init();
+</script>
+</body>
+</html>
