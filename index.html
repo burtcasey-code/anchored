@@ -1012,7 +1012,7 @@ let editingPrayerEntry = null;
 
 function defaultState() {
   return {
-    settings: { theme: 'system', backupReminder: true, lastBackup: null },
+    settings: { theme: 'light', backupReminder: true, lastBackup: null },
     weeks: {}, // keyed by isoWeek (YYYY-Www): { onePercent, commitments[3], capacity{}, notes }
     days: {}, // keyed by YYYY-MM-DD: { habits{}, note }
     tasks: [], // { id, title, imp, urg, diff, quadrant, done, createdAt }
