@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/CASEY/Downloads/anchored_2.html -->
+<!-- saved from url=(0048)file:///C:/Users/CASEY/Downloads/anchored_3.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -10,7 +10,7 @@
 <title>Anchored</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="./Anchored_files/css2" rel="stylesheet">
+<link href="./anchored_3_files/css2" rel="stylesheet">
 <link rel="apple-touch-icon" href="file:///C:/Users/CASEY/Downloads/icons/anchor_icon_180_flat.png">
 <link rel="icon" type="image/png" sizes="192x192" href="file:///C:/Users/CASEY/Downloads/icons/anchor_icon_192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="file:///C:/Users/CASEY/Downloads/icons/anchor_icon_512.png">
@@ -249,6 +249,36 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
 .one-percent-card .tiny { color: var(--olive); }
 .one-percent-card .text { color: var(--olive); font-family: 'Fraunces', serif; font-size: 17px; line-height: 1.4; margin-top: 4px; font-weight: 500; }
 .one-percent-card.empty .text { color: var(--ink-faint); font-style: italic; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 450; }
+
+.top3-card {
+  background: var(--bg-soft);
+  border-radius: 12px;
+  padding: 12px 14px 10px;
+  margin-bottom: 14px;
+}
+.top3-card .tiny { color: var(--ink-mute); }
+.top3-list {
+  margin: 6px 0 0; padding: 0;
+  list-style: none;
+  counter-reset: t3;
+}
+.top3-list li {
+  counter-increment: t3;
+  font-size: 14px; line-height: 1.45;
+  color: var(--ink-soft);
+  padding: 3px 0 3px 22px;
+  position: relative;
+  font-weight: 450;
+}
+.top3-list li::before {
+  content: counter(t3) ".";
+  position: absolute;
+  left: 0;
+  color: var(--ink-mute);
+  font-weight: 600;
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+}
 
 .task-row, .habit-row, .commitment-row {
   display: flex; align-items: center; gap: 10px;
@@ -633,7 +663,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
     </button>
   </div>
 
-  <div id="backup-banner" style="display: block;"><div class="banner">
+  <div id="backup-banner" style="display: none;"><div class="banner">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
       <div style="flex:1">
         <div>Time for a backup — it's been a while.</div>
@@ -648,6 +678,13 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
       <div class="one-percent-card empty" onclick="goToScreen(&#39;week&#39;)" style="cursor:pointer">
         <div class="tiny">This week's 1%</div>
         <div class="text">Tap to set the small lever for this week →</div>
+      </div></div>
+  <div id="top3-display">
+      <div class="top3-card" onclick="goToScreen(&#39;week&#39;)" style="cursor:pointer">
+        <div class="tiny">Top 3 commitments</div>
+        <ol class="top3-list">
+          <li>test 1</li><li>test 2</li><li>test 3</li>
+        </ol>
       </div></div>
 
   <div class="section-head"><h3 class="h3 serif">Today's must-do</h3><span class="small" id="must-do-count"></span></div>
@@ -666,11 +703,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
         <div class="habit-name">Sleep rhythm</div>
         <div class="habit-def">Bed + wake within window</div>
       </div>
-      <div class="habit-cell" onclick="toggleHabit(&#39;sleep&#39;,&#39;2026-05-10&#39;)">
-        <div class="habit-box  ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-      </div><div class="habit-cell" onclick="toggleHabit(&#39;sleep&#39;,&#39;2026-05-11&#39;)">
+      <div class="habit-cell" onclick="toggleHabit(&#39;sleep&#39;,&#39;2026-05-11&#39;)">
         <div class="habit-box  ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -679,6 +712,10 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
       </div><div class="habit-cell" onclick="toggleHabit(&#39;sleep&#39;,&#39;2026-05-13&#39;)">
+        <div class="habit-box  ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div><div class="habit-cell" onclick="toggleHabit(&#39;sleep&#39;,&#39;2026-05-14&#39;)">
         <div class="habit-box today ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -688,11 +725,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
         <div class="habit-name">Quiet time</div>
         <div class="habit-def">Bible + stillness, any duration</div>
       </div>
-      <div class="habit-cell" onclick="toggleHabit(&#39;quiet&#39;,&#39;2026-05-10&#39;)">
-        <div class="habit-box  ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-      </div><div class="habit-cell" onclick="toggleHabit(&#39;quiet&#39;,&#39;2026-05-11&#39;)">
+      <div class="habit-cell" onclick="toggleHabit(&#39;quiet&#39;,&#39;2026-05-11&#39;)">
         <div class="habit-box  ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -701,6 +734,10 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
       </div><div class="habit-cell" onclick="toggleHabit(&#39;quiet&#39;,&#39;2026-05-13&#39;)">
+        <div class="habit-box  ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div><div class="habit-cell" onclick="toggleHabit(&#39;quiet&#39;,&#39;2026-05-14&#39;)">
         <div class="habit-box today ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -710,11 +747,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
         <div class="habit-name">Body care</div>
         <div class="habit-def">Intentional movement or recovery</div>
       </div>
-      <div class="habit-cell" onclick="toggleHabit(&#39;body&#39;,&#39;2026-05-10&#39;)">
-        <div class="habit-box  ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-      </div><div class="habit-cell" onclick="toggleHabit(&#39;body&#39;,&#39;2026-05-11&#39;)">
+      <div class="habit-cell" onclick="toggleHabit(&#39;body&#39;,&#39;2026-05-11&#39;)">
         <div class="habit-box  ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -723,6 +756,10 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
       </div><div class="habit-cell" onclick="toggleHabit(&#39;body&#39;,&#39;2026-05-13&#39;)">
+        <div class="habit-box  ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div><div class="habit-cell" onclick="toggleHabit(&#39;body&#39;,&#39;2026-05-14&#39;)">
         <div class="habit-box today ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -732,11 +769,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
         <div class="habit-name">Focused work block</div>
         <div class="habit-def">One intentional block</div>
       </div>
-      <div class="habit-cell" onclick="toggleHabit(&#39;focus&#39;,&#39;2026-05-10&#39;)">
-        <div class="habit-box  ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-      </div><div class="habit-cell" onclick="toggleHabit(&#39;focus&#39;,&#39;2026-05-11&#39;)">
+      <div class="habit-cell" onclick="toggleHabit(&#39;focus&#39;,&#39;2026-05-11&#39;)">
         <div class="habit-box  ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -745,6 +778,10 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
       </div><div class="habit-cell" onclick="toggleHabit(&#39;focus&#39;,&#39;2026-05-13&#39;)">
+        <div class="habit-box  ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div><div class="habit-cell" onclick="toggleHabit(&#39;focus&#39;,&#39;2026-05-14&#39;)">
         <div class="habit-box today ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -754,11 +791,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
         <div class="habit-name">Relational presence</div>
         <div class="habit-def">One meaningful connection</div>
       </div>
-      <div class="habit-cell" onclick="toggleHabit(&#39;relational&#39;,&#39;2026-05-10&#39;)">
-        <div class="habit-box  ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-      </div><div class="habit-cell" onclick="toggleHabit(&#39;relational&#39;,&#39;2026-05-11&#39;)">
+      <div class="habit-cell" onclick="toggleHabit(&#39;relational&#39;,&#39;2026-05-11&#39;)">
         <div class="habit-box  ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -767,6 +800,10 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
       </div><div class="habit-cell" onclick="toggleHabit(&#39;relational&#39;,&#39;2026-05-13&#39;)">
+        <div class="habit-box  ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div><div class="habit-cell" onclick="toggleHabit(&#39;relational&#39;,&#39;2026-05-14&#39;)">
         <div class="habit-box today ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -776,11 +813,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
         <div class="habit-name">Friction reduction</div>
         <div class="habit-def">Simplify, prepare, reduce load</div>
       </div>
-      <div class="habit-cell" onclick="toggleHabit(&#39;friction&#39;,&#39;2026-05-10&#39;)">
-        <div class="habit-box  ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-      </div><div class="habit-cell" onclick="toggleHabit(&#39;friction&#39;,&#39;2026-05-11&#39;)">
+      <div class="habit-cell" onclick="toggleHabit(&#39;friction&#39;,&#39;2026-05-11&#39;)">
         <div class="habit-box  ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -789,6 +822,10 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
       </div><div class="habit-cell" onclick="toggleHabit(&#39;friction&#39;,&#39;2026-05-13&#39;)">
+        <div class="habit-box  ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div><div class="habit-cell" onclick="toggleHabit(&#39;friction&#39;,&#39;2026-05-14&#39;)">
         <div class="habit-box today ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -798,11 +835,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
         <div class="habit-name">Adhered to limits</div>
         <div class="habit-def">No new commitments added</div>
       </div>
-      <div class="habit-cell" onclick="toggleHabit(&#39;limits&#39;,&#39;2026-05-10&#39;)">
-        <div class="habit-box  ">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-      </div><div class="habit-cell" onclick="toggleHabit(&#39;limits&#39;,&#39;2026-05-11&#39;)">
+      <div class="habit-cell" onclick="toggleHabit(&#39;limits&#39;,&#39;2026-05-11&#39;)">
         <div class="habit-box  ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -811,6 +844,10 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
       </div><div class="habit-cell" onclick="toggleHabit(&#39;limits&#39;,&#39;2026-05-13&#39;)">
+        <div class="habit-box  ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div><div class="habit-cell" onclick="toggleHabit(&#39;limits&#39;,&#39;2026-05-14&#39;)">
         <div class="habit-box today ">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
@@ -819,7 +856,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
   <p class="small italic" style="margin-top:8px;">4 of 7 = Fit Day · 5–6 = Strong · 7 = Bonus · Missed days are data.</p>
 
   <div style="margin-top:14px">
-    <label class="tiny" style="display:block;margin-bottom:6px;">Note (1 sentence)</label>
+    <label class="tiny" style="display:block;margin-bottom:6px;">Note for the Day (1 sentence)</label>
     <input id="day-note" type="text" maxlength="120" placeholder="What&#39;s the one thing worth noting?">
     <div class="small" style="text-align:right;margin-top:4px;"><span id="note-count">0</span> / 120</div>
   </div>
@@ -911,7 +948,7 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
 <div id="screen-week" class="screen hidden">
   <div class="screen-header">
     <div>
-      <div class="eyebrow" id="week-range">This week</div>
+      <div class="eyebrow" id="week-range">WEEK OF MAY 11 – MAY 17</div>
       <h1 class="h1 serif">Weekly review</h1>
     </div>
   </div>
@@ -923,19 +960,75 @@ textarea { resize: none; line-height: 1.55; min-height: 60px; }
 
   <div class="section-head"><h3 class="h3 serif">Top 3 commitments</h3></div>
   <p class="small" style="margin-bottom:10px;">Inputs you control, not outcomes you hope for. Three only.</p>
-  <div id="commitments-list"></div>
+  <div id="commitments-list"><div class="commitment-row">
+      <div class="commitment-num">1</div>
+      <input type="text" data-idx="0" placeholder="Commitment 1…" value="test 1" data-ddg-inputtype="unknown">
+      <span class="input-badge">Input ✓</span>
+    </div><div class="commitment-row">
+      <div class="commitment-num">2</div>
+      <input type="text" data-idx="1" placeholder="Commitment 2…" value="test 2" data-ddg-inputtype="unknown">
+      <span class="input-badge">Input ✓</span>
+    </div><div class="commitment-row">
+      <div class="commitment-num">3</div>
+      <input type="text" data-idx="2" placeholder="Add a third…" value="test 3" data-ddg-inputtype="unknown">
+      <span class="input-badge">Input ✓</span>
+    </div></div>
   <div class="small italic" style="margin-top:8px;padding:10px;background:var(--bg-soft);border-radius:8px;"><strong>Tip:</strong> If you can't say what's controllable about a commitment, it might be an outcome in disguise. "Lose 5 lbs" is an outcome. "Walk 30 min, 5 days" is an input.</div>
 
   <div class="section-head"><h3 class="h3 serif">Capacity snapshot</h3></div>
   <p class="small" style="margin-bottom:12px;">Don't rate from feeling. Pick the description that fits the week.</p>
-  <div id="capacity-rating-list"></div>
+  <div id="capacity-rating-list"><div style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
+        <span class="h3 serif" style="font-family:&#39;Fraunces&#39;,serif;font-size:15px;font-weight:500">Sleep consistency</span>
+        <span class="small" style="font-family:&#39;Fraunces&#39;,serif;font-size:18px;color:var(--ink-faint)">–</span>
+      </div>
+      <p class="small" style="margin-bottom:6px">Did my sleep routine hold even when the week got busy?</p>
+      
+      <div class="anchor-rating"><button class="anchor-btn " onclick="rateCapacity(&#39;sleep&#39;,1)">1</button><button class="anchor-btn " onclick="rateCapacity(&#39;sleep&#39;,2)">2</button><button class="anchor-btn " onclick="rateCapacity(&#39;sleep&#39;,3)">3</button><button class="anchor-btn " onclick="rateCapacity(&#39;sleep&#39;,4)">4</button><button class="anchor-btn " onclick="rateCapacity(&#39;sleep&#39;,5)">5</button></div>
+    </div><div style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
+        <span class="h3 serif" style="font-family:&#39;Fraunces&#39;,serif;font-size:15px;font-weight:500">Physical resilience</span>
+        <span class="small" style="font-family:&#39;Fraunces&#39;,serif;font-size:18px;color:var(--ink-faint)">–</span>
+      </div>
+      <p class="small" style="margin-bottom:6px">How well did my body support my responsibilities?</p>
+      
+      <div class="anchor-rating"><button class="anchor-btn " onclick="rateCapacity(&#39;physical&#39;,1)">1</button><button class="anchor-btn " onclick="rateCapacity(&#39;physical&#39;,2)">2</button><button class="anchor-btn " onclick="rateCapacity(&#39;physical&#39;,3)">3</button><button class="anchor-btn " onclick="rateCapacity(&#39;physical&#39;,4)">4</button><button class="anchor-btn " onclick="rateCapacity(&#39;physical&#39;,5)">5</button></div>
+    </div><div style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
+        <span class="h3 serif" style="font-family:&#39;Fraunces&#39;,serif;font-size:15px;font-weight:500">Mental clarity</span>
+        <span class="small" style="font-family:&#39;Fraunces&#39;,serif;font-size:18px;color:var(--ink-faint)">–</span>
+      </div>
+      <p class="small" style="margin-bottom:6px">How easily could I focus &amp; think clearly when needed?</p>
+      
+      <div class="anchor-rating"><button class="anchor-btn " onclick="rateCapacity(&#39;mental&#39;,1)">1</button><button class="anchor-btn " onclick="rateCapacity(&#39;mental&#39;,2)">2</button><button class="anchor-btn " onclick="rateCapacity(&#39;mental&#39;,3)">3</button><button class="anchor-btn " onclick="rateCapacity(&#39;mental&#39;,4)">4</button><button class="anchor-btn " onclick="rateCapacity(&#39;mental&#39;,5)">5</button></div>
+    </div><div style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
+        <span class="h3 serif" style="font-family:&#39;Fraunces&#39;,serif;font-size:15px;font-weight:500">Emotional bandwidth</span>
+        <span class="small" style="font-family:&#39;Fraunces&#39;,serif;font-size:18px;color:var(--ink-faint)">–</span>
+      </div>
+      <p class="small" style="margin-bottom:6px">How much margin for people, patience, stress?</p>
+      
+      <div class="anchor-rating"><button class="anchor-btn " onclick="rateCapacity(&#39;emotional&#39;,1)">1</button><button class="anchor-btn " onclick="rateCapacity(&#39;emotional&#39;,2)">2</button><button class="anchor-btn " onclick="rateCapacity(&#39;emotional&#39;,3)">3</button><button class="anchor-btn " onclick="rateCapacity(&#39;emotional&#39;,4)">4</button><button class="anchor-btn " onclick="rateCapacity(&#39;emotional&#39;,5)">5</button></div>
+    </div><div style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
+        <span class="h3 serif" style="font-family:&#39;Fraunces&#39;,serif;font-size:15px;font-weight:500">Spiritual grounding</span>
+        <span class="small" style="font-family:&#39;Fraunces&#39;,serif;font-size:18px;color:var(--ink-faint)">–</span>
+      </div>
+      <p class="small" style="margin-bottom:6px">Did I operate from center, or from noise?</p>
+      
+      <div class="anchor-rating"><button class="anchor-btn " onclick="rateCapacity(&#39;spiritual&#39;,1)">1</button><button class="anchor-btn " onclick="rateCapacity(&#39;spiritual&#39;,2)">2</button><button class="anchor-btn " onclick="rateCapacity(&#39;spiritual&#39;,3)">3</button><button class="anchor-btn " onclick="rateCapacity(&#39;spiritual&#39;,4)">4</button><button class="anchor-btn " onclick="rateCapacity(&#39;spiritual&#39;,5)">5</button></div>
+    </div></div>
   <div class="card-soft small" style="margin-top:12px;"><strong>Aim:</strong> Mostly <strong>3s</strong>, some <strong>4s</strong>, an occasional <strong>5</strong>. A week of 2s is data. A week of 5s is suspicious.</div>
 
   <div class="section-head"><h3 class="h3 serif">Weekly notes</h3></div>
   <textarea id="weekly-notes" placeholder="Patterns, friction, what worked, what didn&#39;t…" rows="4"></textarea>
 
   <div class="section-head"><h3 class="h3 serif">Look back</h3></div>
-  <div id="lookback-content"></div>
+  <div id="lookback-content"><div class="lookback-stub">
+      <h2 class="h2 serif">Patterns gather with time</h2>
+      <p class="body">Keep logging. Pattern analysis activates once you have ~4 weeks of capacity ratings or 14 days of habits.</p>
+      <p class="small" style="margin-top:10px">So far: <strong>0</strong> days of habits · <strong>0</strong> weeks rated</p>
+    </div></div>
 </div>
 
 <!-- BOTTOM NAV -->
@@ -1315,6 +1408,21 @@ function renderToday() {
         <div class="tiny">This week's 1%</div>
         <div class="text">Tap to set the small lever for this week →</div>
       </div>`;
+  }
+
+  // Top 3 commitments display
+  const top3El = document.getElementById('top3-display');
+  const filledCommitments = (week.commitments || []).filter(c => c && c.trim());
+  if (filledCommitments.length > 0) {
+    top3El.innerHTML = `
+      <div class="top3-card" onclick="goToScreen('week')" style="cursor:pointer">
+        <div class="tiny">Top 3 commitments</div>
+        <ol class="top3-list">
+          ${filledCommitments.map(c => `<li>${escapeHTML(c)}</li>`).join('')}
+        </ol>
+      </div>`;
+  } else {
+    top3El.innerHTML = '';
   }
 
   // Must-do tasks
